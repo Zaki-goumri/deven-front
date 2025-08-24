@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Search, Filter, MapPin, Clock, Users, Trophy, Calendar, Star, ExternalLink, Heart, Share2, Eye, Building, Globe, ChevronDown, X } from "lucide-react";
 
 export default function ClubsPage() {
@@ -343,64 +344,16 @@ export default function ClubsPage() {
                 )}
               </div>
 
-              {/* Hackathons Section */}
-              <div className="space-y-4">
-                <h4 className="text-lg font-semibold text-white flex items-center">
-                  <Trophy size={18} className="mr-2 text-[#00CFFF]" />
-                  Recent Hackathons
-                </h4>
-                
-                <div className="space-y-3">
-                  {club.hackathons.map((hackathon) => (
-                    <div key={hackathon.id} className="bg-[#1A1A1A] rounded-lg p-4 border border-white/5">
-                      <div className="flex items-start justify-between mb-2">
-                        <h5 className="font-semibold text-white text-sm">{hackathon.title}</h5>
-                        <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                          hackathon.featured 
-                            ? 'bg-[#00CFFF]/20 text-[#00CFFF]' 
-                            : 'bg-[#A0A0A0]/20 text-[#A0A0A0]'
-                        }`}>
-                          {hackathon.featured ? 'Featured' : 'Regular'}
-                        </span>
-                      </div>
-                      
-                      <p className="text-[#A0A0A0] text-xs mb-3 line-clamp-2">{hackathon.description}</p>
-                      
-                      <div className="flex items-center justify-between text-xs text-[#A0A0A0]">
-                        <div className="flex items-center space-x-4">
-                          <div className="flex items-center space-x-1">
-                            <Users size={12} />
-                            <span>{hackathon.participants.toLocaleString()}</span>
-                          </div>
-                          <div className="flex items-center space-x-1">
-                            <Trophy size={12} />
-                            <span>{hackathon.prize}</span>
-                          </div>
-                        </div>
-                        <div className="flex items-center space-x-1">
-                          <Clock size={12} />
-                          <span>{new Date(hackathon.startDate).toLocaleDateString()}</span>
-                        </div>
-                      </div>
-                      
-                      <div className="mt-3 flex space-x-2">
-                        <button className="flex-1 btn-primary text-xs py-2">
-                          View Details
-                        </button>
-                        <button className="btn-secondary text-xs py-2 px-3">
-                          <Share2 size={12} />
-                        </button>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+
 
               {/* Action Buttons */}
               <div className="flex space-x-3 mt-6">
-                <button className="flex-1 btn-primary text-sm py-3">
-                  View All Hackathons
-                </button>
+                <Link 
+                  href={`/dashboard/clubs/${club.id}`}
+                  className="flex-1 btn-primary text-sm py-3 text-center"
+                >
+                  View Club Details
+                </Link>
                 <button className="btn-secondary text-sm py-3 px-4">
                   <Share2 size={16} />
                 </button>
