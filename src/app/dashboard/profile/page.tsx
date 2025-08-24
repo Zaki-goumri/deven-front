@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { User, Mail, MapPin, Calendar, Github, Linkedin, Globe, Edit, Save, X, Bell, Shield, Palette, Download } from "lucide-react";
+import { User, Mail, MapPin, Calendar, Github, Linkedin, Globe, Edit, Save, X, Bell, Shield, Download } from "lucide-react";
 
 export default function ProfilePage() {
   const [isEditing, setIsEditing] = useState(false);

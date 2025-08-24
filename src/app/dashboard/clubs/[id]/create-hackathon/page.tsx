@@ -3,21 +3,18 @@
 import { useState, useEffect } from "react";
 import { useParams, useRouter } from "next/navigation";
 import Link from "next/link";
-import { 
+import {
   ArrowLeft,
-  Plus, 
+  Plus,
   X,
   Calendar,
-  MapPin,
   Users,
   Trophy,
   FileText,
   Globe,
-  Building,
-  Tag,
   Upload,
   Trash2,
-  Save
+  Save,
 } from "lucide-react";
 
 interface Club {
@@ -31,7 +28,7 @@ interface Club {
 interface RegistrationQuestion {
   id: number;
   question: string;
-  type: 'text' | 'textarea' | 'select' | 'checkbox' | 'file';
+  type: "text" | "textarea" | "select" | "checkbox" | "file";
   required: boolean;
   options?: string[];
 }
@@ -42,7 +39,7 @@ interface HackathonForm {
   tags: string[];
   maxTeams: number;
   maxMembersPerTeam: number;
-  type: 'online' | 'in-person' | 'hybrid';
+  type: "online" | "in-person" | "hybrid";
   external: boolean;
   externalLinks: {
     notion?: string;
@@ -71,7 +68,7 @@ export default function CreateHackathonPage() {
     tags: [],
     maxTeams: 100,
     maxMembersPerTeam: 4,
-    type: 'in-person',
+    type: "in-person",
     external: false,
     externalLinks: {},
     prize: "",
@@ -86,38 +83,43 @@ export default function CreateHackathonPage() {
         id: 1,
         question: "What is your team name?",
         type: "text",
-        required: true
+        required: true,
       },
       {
         id: 2,
-        question: "Describe your team's experience and motivation",
+        question: "Describe your team&apos;s experience and motivation",
         type: "textarea",
-        required: true
-      }
-    ]
+        required: true,
+      },
+    ],
   });
 
   const [newTag, setNewTag] = useState("");
-  const [newQuestion, setNewQuestion] = useState({
+  const [newQuestion, setNewQuestion] = useState<{
+    question: string;
+    type: "text" | "textarea" | "select" | "checkbox" | "file";
+    required: boolean;
+    options: string[];
+  }>({
     question: "",
-    type: "text" as const,
+    type: "text",
     required: true,
-    options: [] as string[]
+    options: [],
   });
 
-  // Mock club data
-  const mockClub: Club = {
-    id: 1,
-    name: "Tech Club Algiers",
-    logo: "TCA",
-    description: "Leading technology club in Algiers, organizing innovative hackathons and tech events.",
-    location: "Algiers, Algeria"
-  };
-
   useEffect(() => {
+    const mockClub: Club = {
+      id: 1,
+      name: "Tech Club Algiers",
+      logo: "TCA",
+      description:
+        "Leading technology club in Algiers, organizing innovative hackathons and tech events.",
+      location: "Algiers, Algeria",
+    };
+
     const fetchClub = async () => {
       setLoading(true);
-      await new Promise(resolve => setTimeout(resolve, 500));
+      await new Promise((resolve) => setTimeout(resolve, 500));
       setClub(mockClub);
       setLoading(false);
     };
@@ -125,87 +127,102 @@ export default function CreateHackathonPage() {
     fetchClub();
   }, [params.id]);
 
-  const handleInputChange = (field: keyof HackathonForm, value: any) => {
-    setForm(prev => ({
+  const handleInputChange = (
+    field: keyof HackathonForm,
+    value:
+      | string
+      | number
+      | boolean
+      | File
+      | string[]
+      | { notion?: string; github?: string; registrationForm?: string }
+      | RegistrationQuestion[],
+  ) => {
+    setForm((prev) => ({
       ...prev,
-      [field]: value
+      [field]: value,
     }));
   };
 
   const handleExternalLinkChange = (field: string, value: string) => {
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
       externalLinks: {
         ...prev.externalLinks,
-        [field]: value
-      }
+        [field]: value,
+      },
     }));
   };
 
   const addTag = () => {
     if (newTag.trim() && !form.tags.includes(newTag.trim())) {
-      setForm(prev => ({
+      setForm((prev) => ({
         ...prev,
-        tags: [...prev.tags, newTag.trim()]
+        tags: [...prev.tags, newTag.trim()],
       }));
       setNewTag("");
     }
   };
 
   const removeTag = (tagToRemove: string) => {
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
-      tags: prev.tags.filter(tag => tag !== tagToRemove)
+      tags: prev.tags.filter((tag) => tag !== tagToRemove),
     }));
   };
 
   const addQuestion = () => {
     if (newQuestion.question.trim()) {
-      setForm(prev => ({
+      setForm((prev) => ({
         ...prev,
         registrationQuestions: [
           ...prev.registrationQuestions,
           {
             ...newQuestion,
-            id: Math.max(...prev.registrationQuestions.map(q => q.id)) + 1
-          }
-        ]
+            id: Math.max(...prev.registrationQuestions.map((q) => q.id)) + 1,
+          },
+        ],
       }));
       setNewQuestion({
         question: "",
         type: "text",
         required: true,
-        options: []
+        options: [],
       });
     }
   };
 
   const removeQuestion = (questionId: number) => {
-    setForm(prev => ({
+    setForm((prev) => ({
       ...prev,
-      registrationQuestions: prev.registrationQuestions.filter(q => q.id !== questionId)
+      registrationQuestions: prev.registrationQuestions.filter(
+        (q) => q.id !== questionId,
+      ),
     }));
   };
 
-  const handleFileChange = (field: 'coverImage' | 'rules', file: File | null) => {
-    setForm(prev => ({
+  const handleFileChange = (
+    field: "coverImage" | "rules",
+    file: File | null,
+  ) => {
+    setForm((prev) => ({
       ...prev,
-      [field]: file
+      [field]: file,
     }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
-    
+
     // Here you would typically send the data to your backend
     console.log("Creating hackathon:", form);
-    
+
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    
+    await new Promise((resolve) => setTimeout(resolve, 1000));
+
     setSaving(false);
-    
+
     // Redirect to hackathon management page
     router.push(`/dashboard/clubs/${club?.id}/manage?tab=hackathons`);
   };
@@ -226,7 +243,9 @@ export default function CreateHackathonPage() {
       <div className="min-h-screen bg-[#0A0A0A] flex items-center justify-center">
         <div className="text-center">
           <h3 className="text-xl font-bold text-white mb-2">Club not found</h3>
-          <p className="text-[#A0A0A0] mb-6">The club you're looking for doesn't exist.</p>
+          <p className="text-[#A0A0A0] mb-6">
+            The club you&apos;re looking for doesn&apos;t exist.
+          </p>
           <Link href="/dashboard/my-clubs" className="btn-primary">
             Back to My Clubs
           </Link>
@@ -241,7 +260,7 @@ export default function CreateHackathonPage() {
       <div className="p-6 border-b border-white/10">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
-            <Link 
+            <Link
               href={`/dashboard/clubs/${club.id}/manage`}
               className="flex items-center space-x-2 text-[#00CFFF] hover:text-white transition-colors"
             >
@@ -251,10 +270,14 @@ export default function CreateHackathonPage() {
             <div className="w-px h-6 bg-white/10"></div>
             <div className="flex items-center space-x-3">
               <div className="w-12 h-12 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-xl flex items-center justify-center">
-                <span className="text-white font-bold text-lg">{club.logo}</span>
+                <span className="text-white font-bold text-lg">
+                  {club.logo}
+                </span>
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-white">Create New Hackathon</h1>
+                <h1 className="text-2xl font-bold text-white">
+                  Create New Hackathon
+                </h1>
                 <p className="text-[#A0A0A0]">{club.name}</p>
               </div>
             </div>
@@ -271,7 +294,7 @@ export default function CreateHackathonPage() {
               <Trophy size={24} className="mr-3 text-[#00CFFF]" />
               Basic Information
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-[#C7C7C7] mb-2">
@@ -281,7 +304,7 @@ export default function CreateHackathonPage() {
                   type="text"
                   required
                   value={form.title}
-                  onChange={(e) => handleInputChange('title', e.target.value)}
+                  onChange={(e) => handleInputChange("title", e.target.value)}
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors"
                   placeholder="Enter hackathon title"
                 />
@@ -295,7 +318,9 @@ export default function CreateHackathonPage() {
                   type="text"
                   required
                   value={form.location}
-                  onChange={(e) => handleInputChange('location', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("location", e.target.value)
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors"
                   placeholder="City, Country"
                 />
@@ -309,7 +334,9 @@ export default function CreateHackathonPage() {
               <textarea
                 required
                 value={form.description}
-                onChange={(e) => handleInputChange('description', e.target.value)}
+                onChange={(e) =>
+                  handleInputChange("description", e.target.value)
+                }
                 rows={4}
                 className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors resize-none"
                 placeholder="Describe your hackathon, themes, and objectives"
@@ -322,7 +349,10 @@ export default function CreateHackathonPage() {
               </label>
               <div className="flex flex-wrap gap-2 mb-3">
                 {form.tags.map((tag, index) => (
-                  <span key={index} className="flex items-center space-x-2 px-3 py-1 bg-[#1E3C72]/20 text-[#00CFFF] text-sm font-medium rounded-full border border-[#00CFFF]/20">
+                  <span
+                    key={index}
+                    className="flex items-center space-x-2 px-3 py-1 bg-[#1E3C72]/20 text-[#00CFFF] text-sm font-medium rounded-full border border-[#00CFFF]/20"
+                  >
                     <span>{tag}</span>
                     <button
                       type="button"
@@ -339,7 +369,9 @@ export default function CreateHackathonPage() {
                   type="text"
                   value={newTag}
                   onChange={(e) => setNewTag(e.target.value)}
-                  onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), addTag())}
+                  onKeyPress={(e) =>
+                    e.key === "Enter" && (e.preventDefault(), addTag())
+                  }
                   className="flex-1 px-4 py-2 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors"
                   placeholder="Add tag (e.g., AI, Web3, Mobile)"
                 />
@@ -360,7 +392,7 @@ export default function CreateHackathonPage() {
               <Calendar size={24} className="mr-3 text-[#00CFFF]" />
               Event Details
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-[#C7C7C7] mb-2">
@@ -370,7 +402,9 @@ export default function CreateHackathonPage() {
                   type="datetime-local"
                   required
                   value={form.startDate}
-                  onChange={(e) => handleInputChange('startDate', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("startDate", e.target.value)
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white focus:border-[#00CFFF] focus:outline-none transition-colors"
                 />
               </div>
@@ -383,7 +417,7 @@ export default function CreateHackathonPage() {
                   type="datetime-local"
                   required
                   value={form.endDate}
-                  onChange={(e) => handleInputChange('endDate', e.target.value)}
+                  onChange={(e) => handleInputChange("endDate", e.target.value)}
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white focus:border-[#00CFFF] focus:outline-none transition-colors"
                 />
               </div>
@@ -396,7 +430,9 @@ export default function CreateHackathonPage() {
                   type="datetime-local"
                   required
                   value={form.registrationDeadline}
-                  onChange={(e) => handleInputChange('registrationDeadline', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange("registrationDeadline", e.target.value)
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white focus:border-[#00CFFF] focus:outline-none transition-colors"
                 />
               </div>
@@ -408,7 +444,12 @@ export default function CreateHackathonPage() {
                 <select
                   required
                   value={form.type}
-                  onChange={(e) => handleInputChange('type', e.target.value)}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "type",
+                      e.target.value as "online" | "in-person" | "hybrid",
+                    )
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white focus:border-[#00CFFF] focus:outline-none transition-colors"
                 >
                   <option value="in-person">In-Person</option>
@@ -425,7 +466,7 @@ export default function CreateHackathonPage() {
               <Users size={24} className="mr-3 text-[#00CFFF]" />
               Team Configuration
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-[#C7C7C7] mb-2">
@@ -435,7 +476,9 @@ export default function CreateHackathonPage() {
                   type="number"
                   min="1"
                   value={form.maxTeams}
-                  onChange={(e) => handleInputChange('maxTeams', parseInt(e.target.value))}
+                  onChange={(e) =>
+                    handleInputChange("maxTeams", parseInt(e.target.value))
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white focus:border-[#00CFFF] focus:outline-none transition-colors"
                 />
               </div>
@@ -449,7 +492,12 @@ export default function CreateHackathonPage() {
                   min="1"
                   max="10"
                   value={form.maxMembersPerTeam}
-                  onChange={(e) => handleInputChange('maxMembersPerTeam', parseInt(e.target.value))}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "maxMembersPerTeam",
+                      parseInt(e.target.value),
+                    )
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white focus:border-[#00CFFF] focus:outline-none transition-colors"
                 />
               </div>
@@ -462,7 +510,7 @@ export default function CreateHackathonPage() {
               <Trophy size={24} className="mr-3 text-[#00CFFF]" />
               Prize Information
             </h2>
-            
+
             <div>
               <label className="block text-sm font-medium text-[#C7C7C7] mb-2">
                 Prize Pool
@@ -470,7 +518,7 @@ export default function CreateHackathonPage() {
               <input
                 type="text"
                 value={form.prize}
-                onChange={(e) => handleInputChange('prize', e.target.value)}
+                onChange={(e) => handleInputChange("prize", e.target.value)}
                 className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors"
                 placeholder="e.g., $25,000 or 'Amazing prizes'"
               />
@@ -483,7 +531,7 @@ export default function CreateHackathonPage() {
               <Globe size={24} className="mr-3 text-[#00CFFF]" />
               External Links (Optional)
             </h2>
-            
+
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-[#C7C7C7] mb-2">
@@ -492,7 +540,9 @@ export default function CreateHackathonPage() {
                 <input
                   type="url"
                   value={form.externalLinks.notion || ""}
-                  onChange={(e) => handleExternalLinkChange('notion', e.target.value)}
+                  onChange={(e) =>
+                    handleExternalLinkChange("notion", e.target.value)
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors"
                   placeholder="https://notion.so/..."
                 />
@@ -505,7 +555,9 @@ export default function CreateHackathonPage() {
                 <input
                   type="url"
                   value={form.externalLinks.github || ""}
-                  onChange={(e) => handleExternalLinkChange('github', e.target.value)}
+                  onChange={(e) =>
+                    handleExternalLinkChange("github", e.target.value)
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors"
                   placeholder="https://github.com/..."
                 />
@@ -518,7 +570,9 @@ export default function CreateHackathonPage() {
                 <input
                   type="url"
                   value={form.externalLinks.registrationForm || ""}
-                  onChange={(e) => handleExternalLinkChange('registrationForm', e.target.value)}
+                  onChange={(e) =>
+                    handleExternalLinkChange("registrationForm", e.target.value)
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors"
                   placeholder="https://forms.google.com/..."
                 />
@@ -532,7 +586,7 @@ export default function CreateHackathonPage() {
               <Upload size={24} className="mr-3 text-[#00CFFF]" />
               Files
             </h2>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-[#C7C7C7] mb-2">
@@ -542,15 +596,24 @@ export default function CreateHackathonPage() {
                   <input
                     type="file"
                     accept="image/*"
-                    onChange={(e) => handleFileChange('coverImage', e.target.files?.[0] || null)}
+                    onChange={(e) =>
+                      handleFileChange(
+                        "coverImage",
+                        e.target.files?.[0] || null,
+                      )
+                    }
                     className="hidden"
                     id="coverImage"
                   />
                   <label htmlFor="coverImage" className="cursor-pointer">
                     <Upload size={32} className="text-[#A0A0A0] mx-auto mb-2" />
-                    <p className="text-[#A0A0A0] text-sm">Click to upload cover image</p>
+                    <p className="text-[#A0A0A0] text-sm">
+                      Click to upload cover image
+                    </p>
                     {form.coverImage && (
-                      <p className="text-[#00CFFF] text-sm mt-2">{form.coverImage.name}</p>
+                      <p className="text-[#00CFFF] text-sm mt-2">
+                        {form.coverImage.name}
+                      </p>
                     )}
                   </label>
                 </div>
@@ -564,15 +627,24 @@ export default function CreateHackathonPage() {
                   <input
                     type="file"
                     accept=".pdf"
-                    onChange={(e) => handleFileChange('rules', e.target.files?.[0] || null)}
+                    onChange={(e) =>
+                      handleFileChange("rules", e.target.files?.[0] || null)
+                    }
                     className="hidden"
                     id="rules"
                   />
                   <label htmlFor="rules" className="cursor-pointer">
-                    <FileText size={32} className="text-[#A0A0A0] mx-auto mb-2" />
-                    <p className="text-[#A0A0A0] text-sm">Click to upload rules document</p>
+                    <FileText
+                      size={32}
+                      className="text-[#A0A0A0] mx-auto mb-2"
+                    />
+                    <p className="text-[#A0A0A0] text-sm">
+                      Click to upload rules document
+                    </p>
                     {form.rules && (
-                      <p className="text-[#00CFFF] text-sm mt-2">{form.rules.name}</p>
+                      <p className="text-[#00CFFF] text-sm mt-2">
+                        {form.rules.name}
+                      </p>
                     )}
                   </label>
                 </div>
@@ -586,18 +658,27 @@ export default function CreateHackathonPage() {
               <FileText size={24} className="mr-3 text-[#00CFFF]" />
               Registration Questions
             </h2>
-            
+
             <div className="space-y-4 mb-6">
               {form.registrationQuestions.map((question) => (
-                <div key={question.id} className="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-lg">
+                <div
+                  key={question.id}
+                  className="flex items-center justify-between p-4 bg-[#1A1A1A] rounded-lg"
+                >
                   <div className="flex-1">
                     <div className="flex items-center space-x-2 mb-2">
-                      <span className="text-white font-medium">{question.question}</span>
+                      <span className="text-white font-medium">
+                        {question.question}
+                      </span>
                       {question.required && (
-                        <span className="px-2 py-1 bg-[#FF3B30]/20 text-[#FF3B30] text-xs rounded-full">Required</span>
+                        <span className="px-2 py-1 bg-[#FF3B30]/20 text-[#FF3B30] text-xs rounded-full">
+                          Required
+                        </span>
                       )}
                     </div>
-                    <span className="text-[#A0A0A0] text-sm capitalize">{question.type}</span>
+                    <span className="text-[#A0A0A0] text-sm capitalize">
+                      {question.type}
+                    </span>
                   </div>
                   <button
                     type="button"
@@ -618,7 +699,12 @@ export default function CreateHackathonPage() {
                 <input
                   type="text"
                   value={newQuestion.question}
-                  onChange={(e) => setNewQuestion(prev => ({ ...prev, question: e.target.value }))}
+                  onChange={(e) =>
+                    setNewQuestion((prev) => ({
+                      ...prev,
+                      question: e.target.value,
+                    }))
+                  }
                   className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white placeholder-[#A0A0A0] focus:border-[#00CFFF] focus:outline-none transition-colors"
                   placeholder="Enter your question"
                 />
@@ -631,7 +717,17 @@ export default function CreateHackathonPage() {
                   </label>
                   <select
                     value={newQuestion.type}
-                    onChange={(e) => setNewQuestion(prev => ({ ...prev, type: e.target.value as any }))}
+                    onChange={(e) =>
+                      setNewQuestion((prev) => ({
+                        ...prev,
+                        type: e.target.value as
+                          | "text"
+                          | "textarea"
+                          | "select"
+                          | "checkbox"
+                          | "file",
+                      }))
+                    }
                     className="w-full px-4 py-3 bg-[#1A1A1A] border border-white/10 rounded-lg text-white focus:border-[#00CFFF] focus:outline-none transition-colors"
                   >
                     <option value="text">Text</option>
@@ -647,10 +743,18 @@ export default function CreateHackathonPage() {
                     type="checkbox"
                     id="required"
                     checked={newQuestion.required}
-                    onChange={(e) => setNewQuestion(prev => ({ ...prev, required: e.target.checked }))}
+                    onChange={(e) =>
+                      setNewQuestion((prev) => ({
+                        ...prev,
+                        required: e.target.checked,
+                      }))
+                    }
                     className="w-4 h-4 text-[#00CFFF] bg-[#1A1A1A] border-white/10 rounded focus:ring-[#00CFFF] focus:ring-2"
                   />
-                  <label htmlFor="required" className="text-sm font-medium text-[#C7C7C7]">
+                  <label
+                    htmlFor="required"
+                    className="text-sm font-medium text-[#C7C7C7]"
+                  >
                     Required
                   </label>
                 </div>
@@ -697,4 +801,5 @@ export default function CreateHackathonPage() {
       </div>
     </div>
   );
-} 
+}
+

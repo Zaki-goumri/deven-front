@@ -2,13 +2,27 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Search, Filter, MapPin, Clock, Users, Trophy, Calendar, Star, ExternalLink, Heart, Share2, Eye, Zap, Award, Globe, Building } from "lucide-react";
+import {
+  Search,
+  MapPin,
+  Clock,
+  Users,
+  Trophy,
+  Star,
+  ExternalLink,
+  Heart,
+  Share2,
+  Eye,
+  Zap,
+  Globe,
+} from "lucide-react";
 
 export default function HackathonsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
-  const [likedHackathons, setLikedHackathons] = useState<Set<number>>(new Set([1, 3]));
-
+  const [likedHackathons, setLikedHackathons] = useState<Set<number>>(
+    new Set([1, 3]),
+  );
 
   // Mock hackathon data with more social features
   const hackathons = [
@@ -17,7 +31,8 @@ export default function HackathonsPage() {
       title: "AI Innovation Challenge 2024",
       organization: "Tech Club Algiers",
       organizationLogo: "TCA",
-      description: "Build innovative AI solutions to solve real-world problems. Focus on machine learning, computer vision, and natural language processing. Join thousands of developers worldwide!",
+      description:
+        "Build innovative AI solutions to solve real-world problems. Focus on machine learning, computer vision, and natural language processing. Join thousands of developers worldwide!",
       startDate: "2024-02-15",
       endDate: "2024-02-17",
       location: "Algiers, Algeria",
@@ -30,7 +45,7 @@ export default function HackathonsPage() {
         { place: "1st", amount: "$10,000" },
         { place: "2nd", amount: "$7,000" },
         { place: "3rd", amount: "$5,000" },
-        { place: "Special", amount: "$3,000" }
+        { place: "Special", amount: "$3,000" },
       ],
       tags: ["AI", "Machine Learning", "Python", "Computer Vision"],
       status: "upcoming",
@@ -42,14 +57,16 @@ export default function HackathonsPage() {
       views: 2156,
       featured: true,
       timeLeft: "5 days left",
-      coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
     },
     {
       id: 2,
       title: "Web Development Sprint",
       organization: "Code Masters",
       organizationLogo: "CM",
-      description: "A fast-paced web development competition. Build modern, responsive web applications using the latest technologies. Perfect for beginners and experts alike!",
+      description:
+        "A fast-paced web development competition. Build modern, responsive web applications using the latest technologies. Perfect for beginners and experts alike!",
       startDate: "2024-01-20",
       endDate: "2024-01-22",
       location: "Oran, Algeria",
@@ -62,7 +79,7 @@ export default function HackathonsPage() {
         { place: "1st", amount: "$6,000" },
         { place: "2nd", amount: "$4,000" },
         { place: "3rd", amount: "$3,000" },
-        { place: "Special", amount: "$2,000" }
+        { place: "Special", amount: "$2,000" },
       ],
       tags: ["React", "Node.js", "JavaScript", "Full Stack"],
       status: "completed",
@@ -74,14 +91,16 @@ export default function HackathonsPage() {
       views: 892,
       featured: false,
       timeLeft: "Completed",
-      coverImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
     },
     {
       id: 3,
       title: "Mobile App Contest",
       organization: "Innovation Hub",
       organizationLogo: "IH",
-      description: "Create innovative mobile applications for iOS and Android. Focus on user experience and modern design patterns. Show off your mobile development skills!",
+      description:
+        "Create innovative mobile applications for iOS and Android. Focus on user experience and modern design patterns. Show off your mobile development skills!",
       startDate: "2024-03-10",
       endDate: "2024-03-12",
       location: "Constantine, Algeria",
@@ -94,7 +113,7 @@ export default function HackathonsPage() {
         { place: "1st", amount: "$8,000" },
         { place: "2nd", amount: "$5,000" },
         { place: "3rd", amount: "$4,000" },
-        { place: "Special", amount: "$3,000" }
+        { place: "Special", amount: "$3,000" },
       ],
       tags: ["React Native", "Flutter", "Mobile", "UI/UX"],
       status: "upcoming",
@@ -106,27 +125,44 @@ export default function HackathonsPage() {
       views: 1456,
       featured: true,
       timeLeft: "3 weeks left",
-      coverImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop",
-    }
+      coverImage:
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop",
+    },
   ];
 
   const filters = [
     { id: "all", label: "All Hackathons", count: hackathons.length },
-    { id: "upcoming", label: "Upcoming", count: hackathons.filter(h => h.status === "upcoming").length },
-    { id: "featured", label: "Featured", count: hackathons.filter(h => h.featured).length },
-    { id: "online", label: "Online", count: hackathons.filter(h => h.isOnline).length },
+    {
+      id: "upcoming",
+      label: "Upcoming",
+      count: hackathons.filter((h) => h.status === "upcoming").length,
+    },
+    {
+      id: "featured",
+      label: "Featured",
+      count: hackathons.filter((h) => h.featured).length,
+    },
+    {
+      id: "online",
+      label: "Online",
+      count: hackathons.filter((h) => h.isOnline).length,
+    },
   ];
 
-  const filteredHackathons = hackathons.filter(hackathon => {
-    const matchesSearch = hackathon.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         hackathon.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         hackathon.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesFilter = selectedFilter === "all" ||
-                         (selectedFilter === "upcoming" && hackathon.status === "upcoming") ||
-                         (selectedFilter === "featured" && hackathon.featured) ||
-                         (selectedFilter === "online" && hackathon.isOnline);
-    
+  const filteredHackathons = hackathons.filter((hackathon) => {
+    const matchesSearch =
+      hackathon.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      hackathon.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      hackathon.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+
+    const matchesFilter =
+      selectedFilter === "all" ||
+      (selectedFilter === "upcoming" && hackathon.status === "upcoming") ||
+      (selectedFilter === "featured" && hackathon.featured) ||
+      (selectedFilter === "online" && hackathon.isOnline);
+
     return matchesSearch && matchesFilter;
   });
 
@@ -140,14 +176,16 @@ export default function HackathonsPage() {
     setLikedHackathons(newLikedHackathons);
   };
 
-
-
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty.toLowerCase()) {
-      case "beginner": return "bg-[#00C853]/20 text-[#00C853]";
-      case "intermediate": return "bg-[#00CFFF]/20 text-[#00CFFF]";
-      case "advanced": return "bg-[#FF3B30]/20 text-[#FF3B30]";
-      default: return "bg-[#A0A0A0]/20 text-[#A0A0A0]";
+      case "beginner":
+        return "bg-[#00C853]/20 text-[#00C853]";
+      case "intermediate":
+        return "bg-[#00CFFF]/20 text-[#00CFFF]";
+      case "advanced":
+        return "bg-[#FF3B30]/20 text-[#FF3B30]";
+      default:
+        return "bg-[#A0A0A0]/20 text-[#A0A0A0]";
     }
   };
 
@@ -157,15 +195,20 @@ export default function HackathonsPage() {
       <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#1E3C72] via-[#2A5298] to-[#000000] p-8 md:p-12">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="relative z-10 max-w-4xl mx-auto text-center">
-          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Discover Amazing Hackathons</h1>
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Discover Amazing Hackathons
+          </h1>
           <p className="text-lg md:text-xl text-[#C7C7C7] mb-8 max-w-3xl mx-auto">
-            Join thousands of developers, designers, and innovators in building the future. 
-            Find your next challenge and win amazing prizes!
+            Join thousands of developers, designers, and innovators in building
+            the future. Find your next challenge and win amazing prizes!
           </p>
-          
+
           {/* Search Bar */}
           <div className="relative max-w-2xl mx-auto">
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#A0A0A0]" size={24} />
+            <Search
+              className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#A0A0A0]"
+              size={24}
+            />
             <input
               type="text"
               placeholder="Search hackathons, technologies, or organizations..."
@@ -185,14 +228,18 @@ export default function HackathonsPage() {
             onClick={() => setSelectedFilter(filter.id)}
             className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
               selectedFilter === filter.id
-                ? 'bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] text-white shadow-lg'
-                : 'bg-[#1A1A1A] text-[#C7C7C7] hover:bg-white/5 hover:text-white border border-white/10'
+                ? "bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] text-white shadow-lg"
+                : "bg-[#1A1A1A] text-[#C7C7C7] hover:bg-white/5 hover:text-white border border-white/10"
             }`}
           >
             <span>{filter.label}</span>
-            <span className={`px-2 py-0.5 rounded-full text-xs ${
-              selectedFilter === filter.id ? 'bg-white/20' : 'bg-[#00CFFF]/20 text-[#00CFFF]'
-            }`}>
+            <span
+              className={`px-2 py-0.5 rounded-full text-xs ${
+                selectedFilter === filter.id
+                  ? "bg-white/20"
+                  : "bg-[#00CFFF]/20 text-[#00CFFF]"
+              }`}
+            >
               {filter.count}
             </span>
           </button>
@@ -200,183 +247,238 @@ export default function HackathonsPage() {
       </div>
 
       {/* Featured Hackathons */}
-      {filteredHackathons.filter(h => h.featured).length > 0 && (
+      {filteredHackathons.filter((h) => h.featured).length > 0 && (
         <div className="max-w-7xl mx-auto">
           <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center justify-center">
             <Zap className="mr-3 text-[#00CFFF]" />
             Featured Hackathons
           </h2>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
-            {filteredHackathons.filter(h => h.featured).map((hackathon) => (
-              <div key={hackathon.id} className="group relative overflow-hidden rounded-2xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-2xl hover:shadow-[#00CFFF]/10">
-                {/* Cover Image */}
-                <div className="relative h-48 overflow-hidden">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#1E3C72]/80 to-[#000000]/80"></div>
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3 py-1 bg-[#00CFFF]/20 text-[#00CFFF] text-xs font-medium rounded-full backdrop-blur-sm">
-                      Featured
-                    </span>
-                  </div>
-                  <div className="absolute top-4 right-4">
-                    <button
-                      onClick={() => handleLike(hackathon.id)}
-                      className={`p-2 rounded-full backdrop-blur-sm transition-all ${
-                        likedHackathons.has(hackathon.id)
-                          ? 'bg-[#FF3B30]/20 text-[#FF3B30]'
-                          : 'bg-black/20 text-white hover:bg-[#FF3B30]/20 hover:text-[#FF3B30]'
-                      }`}
-                    >
-                      <Heart size={16} fill={likedHackathons.has(hackathon.id) ? 'currentColor' : 'none'} />
-                    </button>
-                  </div>
-                </div>
-
-                {/* Content */}
-                <div className="p-6">
-                  <div className="flex items-start justify-between mb-3">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-lg flex items-center justify-center">
-                        <span className="text-white font-bold text-sm">{hackathon.organizationLogo}</span>
-                      </div>
-                      <div>
-                        <h3 className="text-xl font-bold text-white group-hover:text-[#00CFFF] transition-colors">
-                          {hackathon.title}
-                        </h3>
-                        <p className="text-sm text-[#A0A0A0]">{hackathon.organization}</p>
-                      </div>
-                    </div>
-                    {hackathon.isExternal && (
-                      <ExternalLink size={16} className="text-[#A0A0A0]" />
-                    )}
-                  </div>
-
-                  <p className="text-[#C7C7C7] text-sm mb-4 line-clamp-2">{hackathon.description}</p>
-
-                  {/* Prize */}
-                  <div className="bg-gradient-to-r from-[#00C853]/10 to-[#00CFFF]/10 rounded-lg p-3 mb-4">
-                    <div className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2">
-                        <Trophy size={16} className="text-[#00CFFF]" />
-                        <span className="text-lg font-bold text-white">{hackathon.prize}</span>
-                      </div>
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(hackathon.difficulty)}`}>
-                        {hackathon.difficulty}
+            {filteredHackathons
+              .filter((h) => h.featured)
+              .map((hackathon) => (
+                <div
+                  key={hackathon.id}
+                  className="group relative overflow-hidden rounded-2xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-2xl hover:shadow-[#00CFFF]/10"
+                >
+                  {/* Cover Image */}
+                  <div className="relative h-48 overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#1E3C72]/80 to-[#000000]/80"></div>
+                    <div className="absolute top-4 left-4">
+                      <span className="px-3 py-1 bg-[#00CFFF]/20 text-[#00CFFF] text-xs font-medium rounded-full backdrop-blur-sm">
+                        Featured
                       </span>
                     </div>
-                  </div>
-
-                  {/* Tags */}
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {hackathon.tags.slice(0, 3).map((tag) => (
-                      <span key={tag} className="px-2 py-1 bg-[#1A1A1A] text-[#00CFFF] text-xs rounded-full">
-                        {tag}
-                      </span>
-                    ))}
-                    {hackathon.tags.length > 3 && (
-                      <span className="px-2 py-1 bg-[#1A1A1A] text-[#A0A0A0] text-xs rounded-full">
-                        +{hackathon.tags.length - 3} more
-                      </span>
-                    )}
-                  </div>
-
-                  {/* Stats */}
-                  <div className="flex items-center justify-between text-sm text-[#A0A0A0] mb-4">
-                    <div className="flex items-center space-x-4">
-                      <div className="flex items-center space-x-1">
-                        <Users size={14} />
-                        <span>{hackathon.participants.toLocaleString()}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Eye size={14} />
-                        <span>{hackathon.views.toLocaleString()}</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Heart size={14} />
-                        <span>{hackathon.likes.toLocaleString()}</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-1">
-                      <Star size={14} className="text-[#00CFFF]" fill="currentColor" />
-                      <span>{hackathon.rating}</span>
+                    <div className="absolute top-4 right-4">
+                      <button
+                        onClick={() => handleLike(hackathon.id)}
+                        className={`p-2 rounded-full backdrop-blur-sm transition-all ${
+                          likedHackathons.has(hackathon.id)
+                            ? "bg-[#FF3B30]/20 text-[#FF3B30]"
+                            : "bg-black/20 text-white hover:bg-[#FF3B30]/20 hover:text-[#FF3B30]"
+                        }`}
+                      >
+                        <Heart
+                          size={16}
+                          fill={
+                            likedHackathons.has(hackathon.id)
+                              ? "currentColor"
+                              : "none"
+                          }
+                        />
+                      </button>
                     </div>
                   </div>
 
-                  {/* Time and Location */}
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center space-x-2">
-                      <Clock size={14} className="text-[#A0A0A0]" />
-                      <span className="text-sm text-[#C7C7C7]">{hackathon.timeLeft}</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      {hackathon.isOnline ? (
-                        <Globe size={14} className="text-[#A0A0A0]" />
-                      ) : (
-                        <MapPin size={14} className="text-[#A0A0A0]" />
+                  {/* Content */}
+                  <div className="p-6">
+                    <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-10 h-10 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-lg flex items-center justify-center">
+                          <span className="text-white font-bold text-sm">
+                            {hackathon.organizationLogo}
+                          </span>
+                        </div>
+                        <div>
+                          <h3 className="text-xl font-bold text-white group-hover:text-[#00CFFF] transition-colors">
+                            {hackathon.title}
+                          </h3>
+                          <p className="text-sm text-[#A0A0A0]">
+                            {hackathon.organization}
+                          </p>
+                        </div>
+                      </div>
+                      {hackathon.isExternal && (
+                        <ExternalLink size={16} className="text-[#A0A0A0]" />
                       )}
-                      <span className="text-sm text-[#C7C7C7]">{hackathon.location}</span>
+                    </div>
+
+                    <p className="text-[#C7C7C7] text-sm mb-4 line-clamp-2">
+                      {hackathon.description}
+                    </p>
+
+                    {/* Prize */}
+                    <div className="bg-gradient-to-r from-[#00C853]/10 to-[#00CFFF]/10 rounded-lg p-3 mb-4">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center space-x-2">
+                          <Trophy size={16} className="text-[#00CFFF]" />
+                          <span className="text-lg font-bold text-white">
+                            {hackathon.prize}
+                          </span>
+                        </div>
+                        <span
+                          className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(hackathon.difficulty)}`}
+                        >
+                          {hackathon.difficulty}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {hackathon.tags.slice(0, 3).map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 bg-[#1A1A1A] text-[#00CFFF] text-xs rounded-full"
+                        >
+                          {tag}
+                        </span>
+                      ))}
+                      {hackathon.tags.length > 3 && (
+                        <span className="px-2 py-1 bg-[#1A1A1A] text-[#A0A0A0] text-xs rounded-full">
+                          +{hackathon.tags.length - 3} more
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Stats */}
+                    <div className="flex items-center justify-between text-sm text-[#A0A0A0] mb-4">
+                      <div className="flex items-center space-x-4">
+                        <div className="flex items-center space-x-1">
+                          <Users size={14} />
+                          <span>{hackathon.participants.toLocaleString()}</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Eye size={14} />
+                          <span>{hackathon.views.toLocaleString()}</span>
+                        </div>
+                        <div className="flex items-center space-x-1">
+                          <Heart size={14} />
+                          <span>{hackathon.likes.toLocaleString()}</span>
+                        </div>
+                      </div>
+                      <div className="flex items-center space-x-1">
+                        <Star
+                          size={14}
+                          className="text-[#00CFFF]"
+                          fill="currentColor"
+                        />
+                        <span>{hackathon.rating}</span>
+                      </div>
+                    </div>
+
+                    {/* Time and Location */}
+                    <div className="flex items-center justify-between mb-4">
+                      <div className="flex items-center space-x-2">
+                        <Clock size={14} className="text-[#A0A0A0]" />
+                        <span className="text-sm text-[#C7C7C7]">
+                          {hackathon.timeLeft}
+                        </span>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        {hackathon.isOnline ? (
+                          <Globe size={14} className="text-[#A0A0A0]" />
+                        ) : (
+                          <MapPin size={14} className="text-[#A0A0A0]" />
+                        )}
+                        <span className="text-sm text-[#C7C7C7]">
+                          {hackathon.location}
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Action Buttons */}
+                    <div className="flex space-x-3">
+                      <Link
+                        href={`/dashboard/hackathons/${hackathon.id}`}
+                        className="flex-1 btn-primary text-sm py-3 text-center"
+                      >
+                        View Details
+                      </Link>
+                      <button className="btn-secondary text-sm py-3 px-4">
+                        <Share2 size={16} />
+                      </button>
                     </div>
                   </div>
-
-                  {/* Action Buttons */}
-                  <div className="flex space-x-3">
-                    <Link 
-                      href={`/dashboard/hackathons/${hackathon.id}`}
-                      className="flex-1 btn-primary text-sm py-3 text-center"
-                    >
-                      View Details
-                    </Link>
-                    <button className="btn-secondary text-sm py-3 px-4">
-                      <Share2 size={16} />
-                    </button>
-                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
         </div>
       )}
 
       {/* All Hackathons */}
       <div className="max-w-7xl mx-auto">
-        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">All Hackathons</h2>
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+          All Hackathons
+        </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredHackathons.map((hackathon) => (
-            <div key={hackathon.id} className="group relative overflow-hidden rounded-xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#00CFFF]/5">
+            <div
+              key={hackathon.id}
+              className="group relative overflow-hidden rounded-xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#00CFFF]/5"
+            >
               {/* Header */}
               <div className="p-4 border-b border-white/5">
                 <div className="flex items-start justify-between mb-3">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-lg flex items-center justify-center">
-                      <span className="text-white font-bold text-xs">{hackathon.organizationLogo}</span>
+                      <span className="text-white font-bold text-xs">
+                        {hackathon.organizationLogo}
+                      </span>
                     </div>
                     <div>
                       <h3 className="text-lg font-bold text-white group-hover:text-[#00CFFF] transition-colors line-clamp-1">
                         {hackathon.title}
                       </h3>
-                      <p className="text-xs text-[#A0A0A0]">{hackathon.organization}</p>
+                      <p className="text-xs text-[#A0A0A0]">
+                        {hackathon.organization}
+                      </p>
                     </div>
                   </div>
                   <button
                     onClick={() => handleLike(hackathon.id)}
                     className={`p-1.5 rounded-full transition-all ${
                       likedHackathons.has(hackathon.id)
-                        ? 'text-[#FF3B30]'
-                        : 'text-[#A0A0A0] hover:text-[#FF3B30]'
+                        ? "text-[#FF3B30]"
+                        : "text-[#A0A0A0] hover:text-[#FF3B30]"
                     }`}
                   >
-                    <Heart size={14} fill={likedHackathons.has(hackathon.id) ? 'currentColor' : 'none'} />
+                    <Heart
+                      size={14}
+                      fill={
+                        likedHackathons.has(hackathon.id)
+                          ? "currentColor"
+                          : "none"
+                      }
+                    />
                   </button>
                 </div>
 
-                <p className="text-[#C7C7C7] text-sm line-clamp-2 mb-3">{hackathon.description}</p>
+                <p className="text-[#C7C7C7] text-sm line-clamp-2 mb-3">
+                  {hackathon.description}
+                </p>
 
                 {/* Prize and Difficulty */}
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-2">
                     <Trophy size={14} className="text-[#00CFFF]" />
-                    <span className="text-sm font-semibold text-white">{hackathon.prize}</span>
+                    <span className="text-sm font-semibold text-white">
+                      {hackathon.prize}
+                    </span>
                   </div>
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(hackathon.difficulty)}`}>
+                  <span
+                    className={`px-2 py-1 rounded-full text-xs font-medium ${getDifficultyColor(hackathon.difficulty)}`}
+                  >
                     {hackathon.difficulty}
                   </span>
                 </div>
@@ -384,7 +486,10 @@ export default function HackathonsPage() {
                 {/* Tags */}
                 <div className="flex flex-wrap gap-1 mb-3">
                   {hackathon.tags.slice(0, 2).map((tag) => (
-                    <span key={tag} className="px-2 py-1 bg-[#1A1A1A] text-[#00CFFF] text-xs rounded">
+                    <span
+                      key={tag}
+                      className="px-2 py-1 bg-[#1A1A1A] text-[#00CFFF] text-xs rounded"
+                    >
                       {tag}
                     </span>
                   ))}
@@ -410,7 +515,11 @@ export default function HackathonsPage() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-1">
-                    <Star size={12} className="text-[#00CFFF]" fill="currentColor" />
+                    <Star
+                      size={12}
+                      className="text-[#00CFFF]"
+                      fill="currentColor"
+                    />
                     <span>{hackathon.rating}</span>
                   </div>
                 </div>
@@ -418,7 +527,9 @@ export default function HackathonsPage() {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-1">
                     <Clock size={12} className="text-[#A0A0A0]" />
-                    <span className="text-xs text-[#C7C7C7]">{hackathon.timeLeft}</span>
+                    <span className="text-xs text-[#C7C7C7]">
+                      {hackathon.timeLeft}
+                    </span>
                   </div>
                   <div className="flex items-center space-x-1">
                     {hackathon.isOnline ? (
@@ -426,12 +537,14 @@ export default function HackathonsPage() {
                     ) : (
                       <MapPin size={12} className="text-[#A0A0A0]" />
                     )}
-                    <span className="text-xs text-[#C7C7C7]">{hackathon.location}</span>
+                    <span className="text-xs text-[#C7C7C7]">
+                      {hackathon.location}
+                    </span>
                   </div>
                 </div>
 
                 <div className="flex space-x-2">
-                  <Link 
+                  <Link
                     href={`/dashboard/hackathons/${hackathon.id}`}
                     className="flex-1 btn-primary text-xs py-2 text-center"
                   >
@@ -454,11 +567,14 @@ export default function HackathonsPage() {
             <div className="w-16 h-16 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-full flex items-center justify-center mx-auto mb-6">
               <Search size={32} className="text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-3">No hackathons found</h3>
+            <h3 className="text-2xl font-bold text-white mb-3">
+              No hackathons found
+            </h3>
             <p className="text-[#A0A0A0] mb-8 text-lg">
-              Try adjusting your search terms or filters to find what you're looking for.
+              Try adjusting your search terms or filters to find what you&apos;re
+              looking for.
             </p>
-            <button 
+            <button
               onClick={() => {
                 setSearchTerm("");
                 setSelectedFilter("all");
@@ -470,8 +586,7 @@ export default function HackathonsPage() {
           </div>
         </div>
       )}
-
-
     </div>
   );
-} 
+}
+

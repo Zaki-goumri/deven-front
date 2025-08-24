@@ -2,7 +2,25 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Search, Filter, MapPin, Clock, Users, Trophy, Calendar, Star, ExternalLink, Heart, Share2, Eye, Zap, Globe, Building, TrendingUp, Flame, X, ChevronDown, CalendarDays } from "lucide-react";
+import {
+  Search,
+  Filter,
+  MapPin,
+  Clock,
+  Users,
+  Trophy,
+  Calendar,
+  Star,
+  ExternalLink,
+  Heart,
+  Share2,
+  Eye,
+  Globe,
+  TrendingUp,
+  X,
+  ChevronDown,
+  CalendarDays,
+} from "lucide-react";
 
 export default function FeedPage() {
   const [searchTerm, setSearchTerm] = useState("");
@@ -19,7 +37,8 @@ export default function FeedPage() {
       title: "AI Innovation Challenge 2024",
       organization: "Tech Club Algiers",
       organizationLogo: "TCA",
-      description: "Build innovative AI solutions to solve real-world problems. Focus on machine learning, computer vision, and natural language processing. Join thousands of developers worldwide!",
+      description:
+        "Build innovative AI solutions to solve real-world problems. Focus on machine learning, computer vision, and natural language processing. Join thousands of developers worldwide!",
       participants: 1247,
       maxParticipants: 2000,
       prize: "$25,000",
@@ -27,7 +46,7 @@ export default function FeedPage() {
         { place: "1st", amount: "$10,000" },
         { place: "2nd", amount: "$7,000" },
         { place: "3rd", amount: "$5,000" },
-        { place: "Special", amount: "$3,000" }
+        { place: "Special", amount: "$3,000" },
       ],
       tags: ["AI", "Machine Learning", "Python", "Computer Vision", "NLP"],
       status: "upcoming",
@@ -43,14 +62,16 @@ export default function FeedPage() {
       views: 2156,
       featured: true,
       timeLeft: "5 days left",
-      coverImage: "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1677442136019-21780ecad995?w=800&h=400&fit=crop",
     },
     {
       id: 2,
       title: "Mobile App Contest",
       organization: "Innovation Hub",
       organizationLogo: "IH",
-      description: "Create innovative mobile applications for iOS and Android. Focus on user experience and modern design patterns. Show off your mobile development skills!",
+      description:
+        "Create innovative mobile applications for iOS and Android. Focus on user experience and modern design patterns. Show off your mobile development skills!",
       participants: 567,
       maxParticipants: 800,
       prize: "$20,000",
@@ -58,7 +79,7 @@ export default function FeedPage() {
         { place: "1st", amount: "$8,000" },
         { place: "2nd", amount: "$5,000" },
         { place: "3rd", amount: "$4,000" },
-        { place: "Special", amount: "$3,000" }
+        { place: "Special", amount: "$3,000" },
       ],
       tags: ["React Native", "Flutter", "Mobile", "UI/UX", "iOS", "Android"],
       status: "upcoming",
@@ -74,14 +95,16 @@ export default function FeedPage() {
       views: 1456,
       featured: true,
       timeLeft: "3 weeks left",
-      coverImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop",
     },
     {
       id: 3,
       title: "Blockchain & DeFi Hackathon",
       organization: "Crypto Club",
       organizationLogo: "CC",
-      description: "Explore the world of blockchain and cryptocurrency. Build decentralized applications and smart contracts. The future of finance is here!",
+      description:
+        "Explore the world of blockchain and cryptocurrency. Build decentralized applications and smart contracts. The future of finance is here!",
       participants: 234,
       maxParticipants: 500,
       prize: "$30,000",
@@ -89,7 +112,7 @@ export default function FeedPage() {
         { place: "1st", amount: "$12,000" },
         { place: "2nd", amount: "$8,000" },
         { place: "3rd", amount: "$6,000" },
-        { place: "Special", amount: "$4,000" }
+        { place: "Special", amount: "$4,000" },
       ],
       tags: ["Blockchain", "Solidity", "Web3", "DeFi", "Smart Contracts"],
       status: "upcoming",
@@ -105,14 +128,16 @@ export default function FeedPage() {
       views: 892,
       featured: false,
       timeLeft: "1 month left",
-      coverImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=400&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=400&fit=crop",
     },
     {
       id: 4,
       title: "Web Development Sprint",
       organization: "Code Masters",
       organizationLogo: "CM",
-      description: "A fast-paced web development competition. Build modern, responsive web applications using the latest technologies. Perfect for beginners and experts alike!",
+      description:
+        "A fast-paced web development competition. Build modern, responsive web applications using the latest technologies. Perfect for beginners and experts alike!",
       participants: 892,
       maxParticipants: 1000,
       prize: "$15,000",
@@ -120,7 +145,7 @@ export default function FeedPage() {
         { place: "1st", amount: "$6,000" },
         { place: "2nd", amount: "$4,000" },
         { place: "3rd", amount: "$3,000" },
-        { place: "Special", amount: "$2,000" }
+        { place: "Special", amount: "$2,000" },
       ],
       tags: ["React", "Node.js", "JavaScript", "Full Stack", "TypeScript"],
       status: "upcoming",
@@ -136,18 +161,34 @@ export default function FeedPage() {
       views: 892,
       featured: false,
       timeLeft: "2 weeks left",
-      coverImage: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
+      coverImage:
+        "https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=800&h=400&fit=crop",
     },
   ];
 
   const categories = [
     { id: "all", label: "All", icon: Globe, count: hackathons.length },
-    { id: "hackathons", label: "Hackathons", icon: Trophy, count: hackathons.length },
-    { id: "trending", label: "Trending", icon: TrendingUp, count: hackathons.filter(h => h.featured).length },
-    { id: "upcoming", label: "Upcoming", icon: Calendar, count: hackathons.filter(h => h.status === "upcoming").length },
+    {
+      id: "hackathons",
+      label: "Hackathons",
+      icon: Trophy,
+      count: hackathons.length,
+    },
+    {
+      id: "trending",
+      label: "Trending",
+      icon: TrendingUp,
+      count: hackathons.filter((h) => h.featured).length,
+    },
+    {
+      id: "upcoming",
+      label: "Upcoming",
+      icon: Calendar,
+      count: hackathons.filter((h) => h.status === "upcoming").length,
+    },
   ];
 
-  const allTags = Array.from(new Set(hackathons.flatMap(h => h.tags)));
+  const allTags = Array.from(new Set(hackathons.flatMap((h) => h.tags)));
 
   const sortOptions = [
     { value: "trending", label: "Trending" },
@@ -157,45 +198,59 @@ export default function FeedPage() {
     { value: "prize", label: "Highest Prize" },
   ];
 
-  const filteredHackathons = hackathons.filter(hackathon => {
-    const matchesSearch = hackathon.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         hackathon.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         hackathon.tags.some(tag => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    
-    const matchesCategory = selectedCategory === "all" ||
-                           (selectedCategory === "trending" && hackathon.featured) ||
-                           (selectedCategory === "upcoming" && hackathon.status === "upcoming") ||
-                           selectedCategory === "hackathons";
-    
-    const matchesTags = selectedTags.length === 0 || 
-                       selectedTags.some(tag => hackathon.tags.includes(tag));
-    
-    const matchesDateRange = !dateRange.start || !dateRange.end || 
-                           (hackathon.startDate >= dateRange.start && hackathon.startDate <= dateRange.end);
-    
+  const filteredHackathons = hackathons.filter((hackathon) => {
+    const matchesSearch =
+      hackathon.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      hackathon.organization.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      hackathon.tags.some((tag) =>
+        tag.toLowerCase().includes(searchTerm.toLowerCase()),
+      );
+
+    const matchesCategory =
+      selectedCategory === "all" ||
+      (selectedCategory === "trending" && hackathon.featured) ||
+      (selectedCategory === "upcoming" && hackathon.status === "upcoming") ||
+      selectedCategory === "hackathons";
+
+    const matchesTags =
+      selectedTags.length === 0 ||
+      selectedTags.some((tag) => hackathon.tags.includes(tag));
+
+    const matchesDateRange =
+      !dateRange.start ||
+      !dateRange.end ||
+      (hackathon.startDate >= dateRange.start &&
+        hackathon.startDate <= dateRange.end);
+
     return matchesSearch && matchesCategory && matchesTags && matchesDateRange;
   });
 
   const sortedHackathons = [...filteredHackathons].sort((a, b) => {
     switch (sortBy) {
       case "newest":
-        return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+        return (
+          new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+        );
       case "deadline":
-        return new Date(a.registrationDeadline).getTime() - new Date(b.registrationDeadline).getTime();
+        return (
+          new Date(a.registrationDeadline).getTime() -
+          new Date(b.registrationDeadline).getTime()
+        );
       case "participants":
         return b.participants - a.participants;
       case "prize":
-        return parseInt(b.prize.replace(/[^0-9]/g, '')) - parseInt(a.prize.replace(/[^0-9]/g, ''));
+        return (
+          parseInt(b.prize.replace(/[^0-9]/g, "")) -
+          parseInt(a.prize.replace(/[^0-9]/g, ""))
+        );
       default:
         return b.likes - a.likes;
     }
   });
 
   const toggleTag = (tag: string) => {
-    setSelectedTags(prev => 
-      prev.includes(tag) 
-        ? prev.filter(t => t !== tag)
-        : [...prev, tag]
+    setSelectedTags((prev) =>
+      prev.includes(tag) ? prev.filter((t) => t !== tag) : [...prev, tag],
     );
   };
 
@@ -218,13 +273,23 @@ export default function FeedPage() {
             <h1 className="text-5xl lg:text-6xl font-bold text-white animate-fade-in">
               Discover Amazing Opportunities
             </h1>
-            <p className="text-xl lg:text-2xl text-[#C7C7C7] max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
-              Explore hackathons, join tech clubs, and attend events. Connect with the developer community and build your network!
+            <p
+              className="text-xl lg:text-2xl text-[#C7C7C7] max-w-3xl mx-auto animate-fade-in"
+              style={{ animationDelay: "0.2s" }}
+            >
+              Explore hackathons, join tech clubs, and attend events. Connect
+              with the developer community and build your network!
             </p>
-            
+
             {/* Search Bar */}
-            <div className="relative max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s' }}>
-              <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-[#A0A0A0]" size={24} />
+            <div
+              className="relative max-w-3xl mx-auto animate-fade-in"
+              style={{ animationDelay: "0.4s" }}
+            >
+              <Search
+                className="absolute left-6 top-1/2 transform -translate-y-1/2 text-[#A0A0A0]"
+                size={24}
+              />
               <input
                 type="text"
                 placeholder="Search hackathons, clubs, events, or technologies..."
@@ -249,15 +314,19 @@ export default function FeedPage() {
                 onClick={() => setSelectedCategory(category.id)}
                 className={`flex items-center space-x-3 px-6 py-3 rounded-full text-base font-medium transition-all duration-200 ${
                   selectedCategory === category.id
-                    ? 'bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] text-white shadow-lg hover-lift'
-                    : 'bg-[#1A1A1A] text-[#C7C7C7] hover:bg-white/5 hover:text-white border border-white/10 hover-lift'
+                    ? "bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] text-white shadow-lg hover-lift"
+                    : "bg-[#1A1A1A] text-[#C7C7C7] hover:bg-white/5 hover:text-white border border-white/10 hover-lift"
                 }`}
               >
                 <category.icon size={20} />
                 <span>{category.label}</span>
-                <span className={`px-3 py-1 rounded-full text-sm ${
-                  selectedCategory === category.id ? 'bg-white/20' : 'bg-[#00CFFF]/20 text-[#00CFFF]'
-                }`}>
+                <span
+                  className={`px-3 py-1 rounded-full text-sm ${
+                    selectedCategory === category.id
+                      ? "bg-white/20"
+                      : "bg-[#00CFFF]/20 text-[#00CFFF]"
+                  }`}
+                >
                   {category.count}
                 </span>
               </button>
@@ -272,7 +341,10 @@ export default function FeedPage() {
             >
               <Filter size={20} />
               <span>Advanced Filters</span>
-              <ChevronDown size={20} className={`transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`} />
+              <ChevronDown
+                size={20}
+                className={`transition-transform duration-200 ${showFilters ? "rotate-180" : ""}`}
+              />
             </button>
 
             <div className="flex items-center space-x-4">
@@ -281,12 +353,16 @@ export default function FeedPage() {
                 onChange={(e) => setSortBy(e.target.value)}
                 className="px-4 py-3 bg-[#1A1A1A] text-[#C7C7C7] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300"
               >
-                {sortOptions.map(option => (
-                  <option key={option.value} value={option.value}>{option.label}</option>
+                {sortOptions.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
                 ))}
               </select>
 
-              {(selectedTags.length > 0 || dateRange.start || dateRange.end) && (
+              {(selectedTags.length > 0 ||
+                dateRange.start ||
+                dateRange.end) && (
                 <button
                   onClick={clearFilters}
                   className="flex items-center space-x-2 px-4 py-3 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded-xl transition-colors"
@@ -312,13 +388,23 @@ export default function FeedPage() {
                     <input
                       type="date"
                       value={dateRange.start}
-                      onChange={(e) => setDateRange(prev => ({ ...prev, start: e.target.value }))}
+                      onChange={(e) =>
+                        setDateRange((prev) => ({
+                          ...prev,
+                          start: e.target.value,
+                        }))
+                      }
                       className="px-4 py-3 bg-[#2A2A2A] text-white border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300"
                     />
                     <input
                       type="date"
                       value={dateRange.end}
-                      onChange={(e) => setDateRange(prev => ({ ...prev, end: e.target.value }))}
+                      onChange={(e) =>
+                        setDateRange((prev) => ({
+                          ...prev,
+                          end: e.target.value,
+                        }))
+                      }
                       className="px-4 py-3 bg-[#2A2A2A] text-white border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300"
                     />
                   </div>
@@ -326,7 +412,9 @@ export default function FeedPage() {
 
                 {/* Tags */}
                 <div>
-                  <h3 className="text-white font-semibold mb-4 text-lg">Technologies & Tags</h3>
+                  <h3 className="text-white font-semibold mb-4 text-lg">
+                    Technologies & Tags
+                  </h3>
                   <div className="flex flex-wrap gap-3">
                     {allTags.map((tag) => (
                       <button
@@ -334,8 +422,8 @@ export default function FeedPage() {
                         onClick={() => toggleTag(tag)}
                         className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
                           selectedTags.includes(tag)
-                            ? 'bg-[#00CFFF] text-white hover-lift'
-                            : 'bg-[#2A2A2A] text-[#C7C7C7] hover:bg-[#00CFFF]/20 hover:text-[#00CFFF] hover-lift'
+                            ? "bg-[#00CFFF] text-white hover-lift"
+                            : "bg-[#2A2A2A] text-[#C7C7C7] hover:bg-[#00CFFF]/20 hover:text-[#00CFFF] hover-lift"
                         }`}
                       >
                         {tag}
@@ -357,7 +445,10 @@ export default function FeedPage() {
             <div className="flex items-center space-x-3">
               <span className="text-sm text-[#A0A0A0]">Active filters:</span>
               {selectedTags.map((tag) => (
-                <span key={tag} className="px-3 py-1 bg-[#00CFFF]/20 text-[#00CFFF] text-sm rounded-full">
+                <span
+                  key={tag}
+                  className="px-3 py-1 bg-[#00CFFF]/20 text-[#00CFFF] text-sm rounded-full"
+                >
                   {tag}
                 </span>
               ))}
@@ -368,8 +459,8 @@ export default function FeedPage() {
         {/* Hackathons Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {sortedHackathons.map((hackathon, index) => (
-            <div 
-              key={hackathon.id} 
+            <div
+              key={hackathon.id}
               className="group relative overflow-hidden rounded-2xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-2xl hover:shadow-[#00CFFF]/10 animate-fade-in hover-lift"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
@@ -395,13 +486,17 @@ export default function FeedPage() {
                 <div className="flex items-start justify-between mb-4">
                   <div className="flex items-center space-x-4">
                     <div className="w-12 h-12 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-xl flex items-center justify-center">
-                      <span className="text-white font-bold text-lg">{hackathon.organizationLogo}</span>
+                      <span className="text-white font-bold text-lg">
+                        {hackathon.organizationLogo}
+                      </span>
                     </div>
                     <div>
                       <h3 className="text-2xl font-bold text-white group-hover:text-[#00CFFF] transition-colors mb-1">
                         {hackathon.title}
                       </h3>
-                      <p className="text-[#A0A0A0] text-base">{hackathon.organization}</p>
+                      <p className="text-[#A0A0A0] text-base">
+                        {hackathon.organization}
+                      </p>
                     </div>
                   </div>
                   {hackathon.isExternal && (
@@ -409,14 +504,18 @@ export default function FeedPage() {
                   )}
                 </div>
 
-                <p className="text-[#C7C7C7] text-base mb-6 line-clamp-2">{hackathon.description}</p>
+                <p className="text-[#C7C7C7] text-base mb-6 line-clamp-2">
+                  {hackathon.description}
+                </p>
 
                 {/* Prize */}
                 <div className="bg-gradient-to-r from-[#00C853]/10 to-[#00CFFF]/10 rounded-xl p-4 mb-6">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-3">
                       <Trophy size={20} className="text-[#00CFFF]" />
-                      <span className="text-2xl font-bold text-white">{hackathon.prize}</span>
+                      <span className="text-2xl font-bold text-white">
+                        {hackathon.prize}
+                      </span>
                     </div>
                     <span className="px-3 py-1 bg-[#00C853]/20 text-[#00C853] text-sm font-medium rounded-full">
                       {hackathon.difficulty}
@@ -427,7 +526,10 @@ export default function FeedPage() {
                 {/* Tags */}
                 <div className="flex flex-wrap gap-3 mb-6">
                   {hackathon.tags.slice(0, 3).map((tag) => (
-                    <span key={tag} className="px-3 py-1 bg-[#1A1A1A] text-[#00CFFF] text-sm rounded-full">
+                    <span
+                      key={tag}
+                      className="px-3 py-1 bg-[#1A1A1A] text-[#00CFFF] text-sm rounded-full"
+                    >
                       {tag}
                     </span>
                   ))}
@@ -455,7 +557,11 @@ export default function FeedPage() {
                     </div>
                   </div>
                   <div className="flex items-center space-x-2">
-                    <Star size={16} className="text-[#00CFFF]" fill="currentColor" />
+                    <Star
+                      size={16}
+                      className="text-[#00CFFF]"
+                      fill="currentColor"
+                    />
                     <span>{hackathon.rating}</span>
                   </div>
                 </div>
@@ -474,7 +580,7 @@ export default function FeedPage() {
 
                 {/* Action Buttons */}
                 <div className="flex space-x-4">
-                  <Link 
+                  <Link
                     href={`/dashboard/hackathons/${hackathon.id}`}
                     className="flex-1 btn-primary text-base py-4 text-center"
                   >
@@ -495,11 +601,14 @@ export default function FeedPage() {
             <div className="w-20 h-20 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-full flex items-center justify-center mx-auto mb-6">
               <Search size={40} className="text-white" />
             </div>
-            <h3 className="text-2xl font-bold text-white mb-4">No hackathons found</h3>
+            <h3 className="text-2xl font-bold text-white mb-4">
+              No hackathons found
+            </h3>
             <p className="text-[#A0A0A0] mb-8 text-lg">
-              Try adjusting your search terms or filters to find what you're looking for.
+              Try adjusting your search terms or filters to find what you&apos;re
+              looking for.
             </p>
-            <button 
+            <button
               onClick={clearFilters}
               className="btn-primary text-lg px-8 py-4"
             >
@@ -510,4 +619,5 @@ export default function FeedPage() {
       </div>
     </div>
   );
-} 
+}
+
