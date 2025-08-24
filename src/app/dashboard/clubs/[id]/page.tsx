@@ -1,6 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { 
+  MapPin, 
+  Users, 
+  Trophy, 
+  Calendar, 
+  Star, 
+  ExternalLink, 
+  Heart, 
+  Share2, 
+  Eye, 
+  Building, 
+  Globe,
+  Twitter, 
+  Linkedin,
 import {
   MapPin,
   Users,
@@ -66,6 +80,8 @@ export default function ClubDetailsPage({
   const [loading, setLoading] = useState(true);
 
   // Mock data - in a real app, this would come from an API
+  
+
 
   useEffect(() => {
     // Simulate API call
@@ -275,14 +291,14 @@ export default function ClubDetailsPage({
 
   return (
     <div className="min-h-screen bg-[#0A0A0A]">
-      {/* Back Button */}
+        {/* Back Button */}
       <div className="p-6">
         <Link
           href="/dashboard/clubs"
           className="inline-flex items-center space-x-2 text-[#00CFFF] hover:text-white transition-colors"
-        >
-          <ArrowLeft size={20} />
-          <span>Back to Clubs</span>
+          >
+            <ArrowLeft size={20} />
+            <span>Back to Clubs</span>
         </Link>
       </div>
 
@@ -294,6 +310,7 @@ export default function ClubDetailsPage({
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#1E3C72]/80 to-[#000000]/80"></div>
         </div>
+
 
         <div className="relative h-full flex items-end p-8">
           <div className="flex items-end space-x-6 w-full">
@@ -328,7 +345,7 @@ export default function ClubDetailsPage({
                     fill="currentColor"
                   />
                   <span className="text-[#C7C7C7]">{club.rating}</span>
-                </div>
+                      </div>
                 <div className="flex items-center space-x-2">
                   <Users size={20} className="text-[#A0A0A0]" />
                   <span className="text-[#C7C7C7]">
@@ -340,24 +357,34 @@ export default function ClubDetailsPage({
 
             {/* Action Buttons */}
             <div className="flex items-center space-x-3">
-              <button
-                onClick={handleFollow}
+                  <button 
+                    onClick={handleFollow}
                 className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
+                      isFollowing 
+                    ? 'bg-[#00C853] text-white hover:bg-[#00A843]'
+                    : 'bg-[#1A1A1A] text-white border border-white/20 hover:bg-white/10'
+                    }`}
+                  >
                   isFollowing
                     ? "bg-[#00C853] text-white hover:bg-[#00A843]"
                     : "bg-[#1A1A1A] text-white border border-white/20 hover:bg-white/10"
                 }`}
               >
                 <Heart size={18} fill={isFollowing ? "currentColor" : "none"} />
+                <span>{isFollowing ? 'Following' : 'Follow'}</span>
+                  </button>
+              
+                    <button 
+                      onClick={handleShare}
                 <span>{isFollowing ? "Following" : "Follow"}</span>
               </button>
 
               <button
                 onClick={handleShare}
                 className="p-3 bg-[#1A1A1A] text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-200"
-              >
+                    >
                 <Share2 size={18} />
-              </button>
+                    </button>
             </div>
           </div>
         </div>
@@ -365,11 +392,14 @@ export default function ClubDetailsPage({
 
       {/* Main Content */}
       <div className="p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+              <div className="lg:col-span-2 space-y-8">
             {/* About Section */}
             <div className="bg-[#121212] rounded-2xl p-6 border border-white/10">
+              <h2 className="text-2xl font-bold text-white mb-4">About {club.name}</h2>
+              <p className="text-[#C7C7C7] leading-relaxed">{club.description}</p>
+                  </div>
               <h2 className="text-2xl font-bold text-white mb-4">
                 About {club.name}
               </h2>
@@ -392,7 +422,7 @@ export default function ClubDetailsPage({
                   <span>View All</span>
                   <ExternalLink size={16} />
                 </Link>
-              </div>
+                </div>
 
               <div className="space-y-4">
                 {club.hackathons.map((hackathon) => (
@@ -456,20 +486,20 @@ export default function ClubDetailsPage({
                           {hackathon.views.toLocaleString()}
                         </div>
                         <div className="text-xs text-[#A0A0A0]">Views</div>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mb-4">
                       {hackathon.tags.map((tag, index) => (
                         <span
                           key={index}
                           className="px-3 py-1 bg-[#1E3C72]/20 text-[#00CFFF] text-xs font-medium rounded-full"
                         >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
 
                     {/* Dates */}
                     <div className="flex items-center justify-between text-sm text-[#A0A0A0] mb-4">
@@ -479,9 +509,12 @@ export default function ClubDetailsPage({
                           {new Date(hackathon.startDate).toLocaleDateString()} -{" "}
                           {new Date(hackathon.endDate).toLocaleDateString()}
                         </span>
-                      </div>
+                              </div>
                       <div className="flex items-center space-x-2">
                         <Clock size={16} />
+                        <span>Registration: {new Date(hackathon.registrationDeadline).toLocaleDateString()}</span>
+                          </div>
+                        </div>
                         <span>
                           Registration:{" "}
                           {new Date(
@@ -492,22 +525,24 @@ export default function ClubDetailsPage({
                     </div>
 
                     {/* Action Buttons */}
+                      <div className="flex space-x-3">
+                      <Link 
                     <div className="flex space-x-3">
                       <Link
                         href={`/dashboard/hackathons/${hackathon.id}`}
                         className="flex-1 btn-primary text-center"
                       >
-                        View Details
+                          View Details
                       </Link>
                       <button className="btn-secondary px-4">
-                        <Share2 size={16} />
-                      </button>
+                          <Share2 size={16} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
@@ -519,12 +554,16 @@ export default function ClubDetailsPage({
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-[#A0A0A0]">Total Members</span>
+                  <span className="text-white font-semibold">{club.memberCount.toLocaleString()}</span>
+                      </div>
                   <span className="text-white font-semibold">
                     {club.memberCount.toLocaleString()}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-[#A0A0A0]">Hackathons Organized</span>
+                  <span className="text-white font-semibold">{club.hackathonCount}</span>
+                      </div>
                   <span className="text-white font-semibold">
                     {club.hackathonCount}
                   </span>

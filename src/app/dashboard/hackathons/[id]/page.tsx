@@ -160,8 +160,8 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
           "Certificate of participation"
         ]
       },
-      schedule: [
-        {
+    schedule: [
+      {
           day: "Day 1",
           date: "2024-02-15",
         events: [
@@ -248,7 +248,7 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
         {
           day: "Day 3",
           date: "2024-02-17",
-          events: [
+        events: [
             {
               time: "08:00 AM",
               title: "Breakfast",
@@ -528,14 +528,14 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
 
   return (
     <div className="min-h-screen bg-[#0A0A0A]">
-      {/* Back Button */}
+        {/* Back Button */}
       <div className="p-6">
         <Link 
           href="/dashboard/hackathons" 
           className="inline-flex items-center space-x-2 text-[#00CFFF] hover:text-white transition-colors"
-        >
-          <ArrowLeft size={20} />
-          <span>Back to Hackathons</span>
+          >
+            <ArrowLeft size={20} />
+            <span>Back to Hackathons</span>
         </Link>
       </div>
 
@@ -547,14 +547,14 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#1E3C72]/80 to-[#000000]/80"></div>
         </div>
-        
+
         <div className="relative h-full flex items-end p-8">
           <div className="flex items-end space-x-6 w-full">
             {/* Organization Logo */}
             <div className="w-20 h-20 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-2xl flex items-center justify-center shadow-2xl">
-              <span className="text-white font-bold text-2xl">{hackathon.organizationLogo}</span>
-            </div>
-            
+                  <span className="text-white font-bold text-2xl">{hackathon.organizationLogo}</span>
+              </div>
+
             {/* Hackathon Info */}
             <div className="flex-1 text-white">
               <div className="flex items-center space-x-3 mb-2">
@@ -588,11 +588,11 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
                   <span className="text-[#C7C7C7]">{hackathon.participants.toLocaleString()} participants</span>
                 </div>
               </div>
-            </div>
-            
-            {/* Action Buttons */}
+                </div>
+
+                {/* Action Buttons */}
             <div className="flex items-center space-x-3">
-              <button 
+                  <button 
                 onClick={handleLike}
                 className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
                   isLiked
@@ -602,14 +602,14 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
               >
                 <Heart size={18} fill={isLiked ? "currentColor" : "none"} />
                 <span>{isLiked ? 'Liked' : 'Like'}</span>
-              </button>
+                    </button>
               
-              <button 
-                onClick={handleShare}
+                    <button 
+                      onClick={handleShare}
                 className="p-3 bg-[#1A1A1A] text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-200"
-              >
+                    >
                 <Share2 size={18} />
-              </button>
+                    </button>
             </div>
           </div>
         </div>
@@ -624,7 +624,7 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
             <div className="bg-[#121212] rounded-2xl p-6 border border-white/10">
               <h2 className="text-2xl font-bold text-white mb-4">About This Hackathon</h2>
               <p className="text-[#C7C7C7] leading-relaxed text-lg">{hackathon.description}</p>
-            </div>
+        </div>
 
             {/* Prize Breakdown */}
             <div className="bg-[#121212] rounded-2xl p-6 border border-white/10">
@@ -685,8 +685,8 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
                   {hackathon.type === 'ctf' && 'Capture The Flag - cybersecurity challenges and competitions'}
                   {hackathon.type === 'datathon' && 'Data science and analytics focused competition'}
                 </span>
-              </div>
-            </div>
+                  </div>
+                </div>
 
             {/* Pricing */}
             <div className="bg-[#121212] rounded-2xl p-6 border border-white/10">
@@ -695,7 +695,7 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
                 Registration & Pricing
               </h2>
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="bg-[#1A1A1A] rounded-xl p-4 border border-white/5">
                    <div className="text-center mb-4">
                      <div className="text-3xl font-bold text-white mb-2">{hackathon.pricing.registrationFee}</div>
@@ -854,7 +854,7 @@ export default function HackathonDetailsPage({ params }: { params: { id: string 
                     <div className="text-white font-medium">Event Dates</div>
                     <div className="text-[#A0A0A0] text-sm">
                       {new Date(hackathon.startDate).toLocaleDateString()} - {new Date(hackathon.endDate).toLocaleDateString()}
-                    </div>
+                      </div>
                     </div>
                   </div>
                 </div>
