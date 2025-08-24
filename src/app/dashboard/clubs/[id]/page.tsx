@@ -12,9 +12,9 @@ import {
   Share2, 
   Eye, 
   Building, 
-  Globe, 
+  Globe,
   Twitter, 
-  Linkedin, 
+  Linkedin,
   Github,
   ArrowLeft,
   Clock,
@@ -68,69 +68,69 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
   const mockClubs: Club[] = [
     {
       id: 1,
-      name: "Tech Club Algiers",
-      logo: "TCA",
+    name: "Tech Club Algiers",
+    logo: "TCA",
       description: "Leading technology club in Algiers, organizing innovative hackathons and tech events. We focus on AI, web development, and mobile technologies. Our mission is to foster innovation and create opportunities for tech enthusiasts to collaborate, learn, and build amazing projects together.",
-      memberCount: 1245,
-      hackathonCount: 8,
-      rating: 4.8,
-      location: "Algiers, Algeria",
-      isVerified: true,
-      coverImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
-      website: "https://techclub-algiers.com",
-      socialMedia: {
-        twitter: "@techclub_algiers",
-        linkedin: "tech-club-algiers",
+    memberCount: 1245,
+    hackathonCount: 8,
+    rating: 4.8,
+    location: "Algiers, Algeria",
+    isVerified: true,
+    coverImage: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=400&fit=crop",
+    website: "https://techclub-algiers.com",
+    socialMedia: {
+      twitter: "@techclub_algiers",
+      linkedin: "tech-club-algiers",
         github: "techclub-algiers"
       },
-      hackathons: [
-        {
-          id: 1,
-          title: "AI Innovation Challenge 2024",
-          description: "Build innovative AI solutions to solve real-world problems. Focus on machine learning, computer vision, and natural language processing.",
-          participants: 1247,
-          maxParticipants: 2000,
-          prize: "$25,000",
-          startDate: "2024-02-15",
-          endDate: "2024-02-17",
+    hackathons: [
+      {
+        id: 1,
+        title: "AI Innovation Challenge 2024",
+        description: "Build innovative AI solutions to solve real-world problems. Focus on machine learning, computer vision, and natural language processing.",
+        participants: 1247,
+        maxParticipants: 2000,
+        prize: "$25,000",
+        startDate: "2024-02-15",
+        endDate: "2024-02-17",
           registrationDeadline: "2024-02-10",
-          status: "upcoming",
-          tags: ["AI", "Machine Learning", "Python", "Computer Vision", "NLP"],
-          likes: 342,
-          views: 2156,
-          featured: true,
-        },
-        {
-          id: 2,
-          title: "Web Development Sprint",
-          description: "A fast-paced web development competition. Build modern, responsive web applications using the latest technologies.",
-          participants: 892,
-          maxParticipants: 1000,
-          prize: "$15,000",
-          startDate: "2024-02-25",
-          endDate: "2024-02-27",
+        status: "upcoming",
+        tags: ["AI", "Machine Learning", "Python", "Computer Vision", "NLP"],
+        likes: 342,
+        views: 2156,
+        featured: true,
+      },
+      {
+        id: 2,
+        title: "Web Development Sprint",
+        description: "A fast-paced web development competition. Build modern, responsive web applications using the latest technologies.",
+        participants: 892,
+        maxParticipants: 1000,
+        prize: "$15,000",
+        startDate: "2024-02-25",
+        endDate: "2024-02-27",
           registrationDeadline: "2024-02-20",
-          status: "upcoming",
-          tags: ["React", "Node.js", "JavaScript", "Full Stack", "TypeScript"],
-          likes: 156,
-          views: 892,
-          featured: false,
-        },
-        {
-          id: 3,
+        status: "upcoming",
+        tags: ["React", "Node.js", "JavaScript", "Full Stack", "TypeScript"],
+        likes: 156,
+        views: 892,
+        featured: false,
+      },
+      {
+        id: 3,
           title: "Mobile App Development Contest",
           description: "Create innovative mobile applications for iOS and Android platforms. Focus on user experience and modern design patterns.",
-          participants: 567,
-          maxParticipants: 800,
-          prize: "$20,000",
+        participants: 567,
+        maxParticipants: 800,
+        prize: "$20,000",
           startDate: "2024-01-15",
           endDate: "2024-01-17",
           registrationDeadline: "2024-01-10",
-          status: "completed",
-          tags: ["React Native", "Flutter", "Mobile", "UI/UX", "iOS", "Android"],
-          likes: 289,
-          views: 1456,
-          featured: true,
+        status: "completed",
+        tags: ["React Native", "Flutter", "Mobile", "UI/UX", "iOS", "Android"],
+        likes: 289,
+        views: 1456,
+        featured: true,
         }
       ]
     },
@@ -238,14 +238,14 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
 
   return (
     <div className="min-h-screen bg-[#0A0A0A]">
-      {/* Back Button */}
+        {/* Back Button */}
       <div className="p-6">
         <Link 
           href="/dashboard/clubs" 
           className="inline-flex items-center space-x-2 text-[#00CFFF] hover:text-white transition-colors"
-        >
-          <ArrowLeft size={20} />
-          <span>Back to Clubs</span>
+          >
+            <ArrowLeft size={20} />
+            <span>Back to Clubs</span>
         </Link>
       </div>
 
@@ -257,7 +257,7 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
         >
           <div className="absolute inset-0 bg-gradient-to-br from-[#1E3C72]/80 to-[#000000]/80"></div>
         </div>
-        
+
         <div className="relative h-full flex items-end p-8">
           <div className="flex items-end space-x-6 w-full">
             {/* Club Logo */}
@@ -285,34 +285,34 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
                 <div className="flex items-center space-x-2">
                   <Star size={20} className="text-[#00CFFF]" fill="currentColor" />
                   <span className="text-[#C7C7C7]">{club.rating}</span>
-                </div>
+                      </div>
                 <div className="flex items-center space-x-2">
                   <Users size={20} className="text-[#A0A0A0]" />
                   <span className="text-[#C7C7C7]">{club.memberCount.toLocaleString()} members</span>
                 </div>
-              </div>
-            </div>
-            
-            {/* Action Buttons */}
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
             <div className="flex items-center space-x-3">
-              <button
-                onClick={handleFollow}
+                  <button 
+                    onClick={handleFollow}
                 className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-200 ${
-                  isFollowing
+                      isFollowing 
                     ? 'bg-[#00C853] text-white hover:bg-[#00A843]'
                     : 'bg-[#1A1A1A] text-white border border-white/20 hover:bg-white/10'
-                }`}
-              >
+                    }`}
+                  >
                 <Heart size={18} fill={isFollowing ? "currentColor" : "none"} />
                 <span>{isFollowing ? 'Following' : 'Follow'}</span>
-              </button>
+                  </button>
               
-              <button
-                onClick={handleShare}
+                    <button 
+                      onClick={handleShare}
                 className="p-3 bg-[#1A1A1A] text-white border border-white/20 rounded-xl hover:bg-white/10 transition-all duration-200"
-              >
+                    >
                 <Share2 size={18} />
-              </button>
+                    </button>
             </div>
           </div>
         </div>
@@ -320,14 +320,14 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
 
       {/* Main Content */}
       <div className="p-8">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Main Content */}
-          <div className="lg:col-span-2 space-y-8">
+              <div className="lg:col-span-2 space-y-8">
             {/* About Section */}
             <div className="bg-[#121212] rounded-2xl p-6 border border-white/10">
               <h2 className="text-2xl font-bold text-white mb-4">About {club.name}</h2>
               <p className="text-[#C7C7C7] leading-relaxed">{club.description}</p>
-            </div>
+                  </div>
 
             {/* Hackathons Section */}
             <div className="bg-[#121212] rounded-2xl p-6 border border-white/10">
@@ -343,7 +343,7 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
                   <span>View All</span>
                   <ExternalLink size={16} />
                 </Link>
-              </div>
+                </div>
 
               <div className="space-y-4">
                 {club.hackathons.map((hackathon) => (
@@ -386,20 +386,20 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
                       <div className="text-center">
                         <div className="text-lg font-bold text-white">{hackathon.views.toLocaleString()}</div>
                         <div className="text-xs text-[#A0A0A0]">Views</div>
+                        </div>
                       </div>
-                    </div>
 
-                    {/* Tags */}
-                    <div className="flex flex-wrap gap-2 mb-4">
+                      {/* Tags */}
+                      <div className="flex flex-wrap gap-2 mb-4">
                       {hackathon.tags.map((tag, index) => (
                         <span 
                           key={index}
                           className="px-3 py-1 bg-[#1E3C72]/20 text-[#00CFFF] text-xs font-medium rounded-full"
                         >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
 
                     {/* Dates */}
                     <div className="flex items-center justify-between text-sm text-[#A0A0A0] mb-4">
@@ -408,30 +408,30 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
                         <span>
                           {new Date(hackathon.startDate).toLocaleDateString()} - {new Date(hackathon.endDate).toLocaleDateString()}
                         </span>
-                      </div>
+                              </div>
                       <div className="flex items-center space-x-2">
                         <Clock size={16} />
                         <span>Registration: {new Date(hackathon.registrationDeadline).toLocaleDateString()}</span>
-                      </div>
-                    </div>
+                          </div>
+                        </div>
 
                     {/* Action Buttons */}
-                    <div className="flex space-x-3">
+                      <div className="flex space-x-3">
                       <Link 
                         href={`/dashboard/hackathons/${hackathon.id}`}
                         className="flex-1 btn-primary text-center"
                       >
-                        View Details
+                          View Details
                       </Link>
                       <button className="btn-secondary px-4">
-                        <Share2 size={16} />
-                      </button>
+                          <Share2 size={16} />
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
 
           {/* Right Column - Sidebar */}
           <div className="space-y-6">
@@ -442,11 +442,11 @@ export default function ClubDetailsPage({ params }: { params: { id: string } }) 
                 <div className="flex items-center justify-between">
                   <span className="text-[#A0A0A0]">Total Members</span>
                   <span className="text-white font-semibold">{club.memberCount.toLocaleString()}</span>
-                </div>
+                      </div>
                 <div className="flex items-center justify-between">
                   <span className="text-[#A0A0A0]">Hackathons Organized</span>
                   <span className="text-white font-semibold">{club.hackathonCount}</span>
-                </div>
+                      </div>
                 <div className="flex items-center justify-between">
                   <span className="text-[#A0A0A0]">Average Rating</span>
                   <div className="flex items-center space-x-1">

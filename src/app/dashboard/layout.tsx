@@ -18,7 +18,15 @@ import {
   ChevronDown,
   LogOut,
   Sparkles,
-  Building
+  Building,
+  CheckCircle,
+  Clock,
+  AlertCircle,
+  X,
+  Mail,
+  Users as TeamIcon,
+  Award,
+  Calendar as EventIcon
 } from "lucide-react";
 
 interface DashboardLayoutProps {
@@ -35,15 +43,20 @@ const navigation = [
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const [notificationMenuOpen, setNotificationMenuOpen] = useState(false);
   const [searchFocused, setSearchFocused] = useState(false);
   const profileMenuRef = useRef<HTMLDivElement>(null);
+  const notificationMenuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
-  // Close profile menu when clicking outside
+  // Close menus when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (profileMenuRef.current && !profileMenuRef.current.contains(event.target as Node)) {
         setProfileMenuOpen(false);
+      }
+      if (notificationMenuRef.current && !notificationMenuRef.current.contains(event.target as Node)) {
+        setNotificationMenuOpen(false);
       }
     }
 
@@ -131,11 +144,182 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </div>
 
               {/* Notifications */}
-              <button className="relative p-2 text-[#C7C7C7] hover:text-white transition-colors group">
-                <Bell size={20} className="group-hover:scale-110 transition-transform duration-300" />
-                <span className="absolute top-1 right-1 w-2 h-2 bg-[#00C853] rounded-full animate-pulse"></span>
-                <div className="absolute inset-0 bg-[#00CFFF]/0 group-hover:bg-[#00CFFF]/10 rounded-lg transition-colors duration-300"></div>
-              </button>
+              <div className="relative" ref={notificationMenuRef}>
+                <button
+                  onClick={() => setNotificationMenuOpen(!notificationMenuOpen)}
+                  className="relative p-2 text-[#C7C7C7] hover:text-white transition-colors group"
+                >
+                  <Bell size={20} className="group-hover:scale-110 transition-transform duration-300" />
+                  <span className="absolute top-1 right-1 w-2 h-2 bg-[#00C853] rounded-full animate-pulse"></span>
+                  <div className="absolute inset-0 bg-[#00CFFF]/0 group-hover:bg-[#00CFFF]/10 rounded-lg transition-colors duration-300"></div>
+                </button>
+
+                {/* Notification Dropdown */}
+                {notificationMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-96 bg-[#121212]/95 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl animate-in slide-in-from-top-2 duration-200 max-h-[32rem] overflow-hidden">
+                    <div className="p-4 border-b border-white/10">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-lg font-bold text-white">Notifications</h3>
+                        <button 
+                          onClick={() => setNotificationMenuOpen(false)}
+                          className="text-[#A0A0A0] hover:text-white transition-colors"
+                        >
+                          <X size={16} />
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div className="max-h-96 overflow-y-auto">
+                      {/* Notification Types */}
+                      <div className="p-2 space-y-4">
+                        {/* Unread Notifications */}
+                        <div>
+                          <div className="flex items-center justify-between mb-2 px-2">
+                            <h4 className="text-sm font-semibold text-[#00CFFF] flex items-center">
+                              <div className="w-2 h-2 bg-[#00CFFF] rounded-full mr-2"></div>
+                              Unread (3)
+                            </h4>
+                            <button className="text-[#00CFFF] text-xs hover:text-white transition-colors">
+                              Mark all read
+                            </button>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            {/* Hackathon Registration Accepted */}
+                            <div className="flex items-start space-x-3 p-3 bg-[#00C853]/10 border border-[#00C853]/20 rounded-lg hover:bg-[#00C853]/20 transition-colors cursor-pointer group">
+                              <div className="w-8 h-8 bg-[#00C853]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <CheckCircle size={16} className="text-[#00C853]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-semibold text-sm">Registration Accepted!</p>
+                                <p className="text-[#A0A0A0] text-xs">Your team "AI Pioneers" has been accepted for AI Innovation Challenge 2024</p>
+                                <p className="text-[#A0A0A0] text-xs mt-1">2 hours ago</p>
+                              </div>
+                              <button className="opacity-0 group-hover:opacity-100 p-1 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded transition-all duration-200">
+                                <X size={12} />
+                              </button>
+                            </div>
+
+                            {/* New Hackathon */}
+                            <div className="flex items-start space-x-3 p-3 bg-[#00CFFF]/10 border border-[#00CFFF]/20 rounded-lg hover:bg-[#00CFFF]/20 transition-colors cursor-pointer group">
+                              <div className="w-8 h-8 bg-[#00CFFF]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <EventIcon size={16} className="text-[#00CFFF]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-semibold text-sm">New Hackathon Available</p>
+                                <p className="text-[#A0A0A0] text-xs">Mobile App Development Contest is now open for registration</p>
+                                <p className="text-[#A0A0A0] text-xs mt-1">5 hours ago</p>
+                              </div>
+                              <button className="opacity-0 group-hover:opacity-100 p-1 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded transition-all duration-200">
+                                <X size={12} />
+                              </button>
+                            </div>
+
+                            {/* Deadline Reminder */}
+                            <div className="flex items-start space-x-3 p-3 bg-[#FF9500]/10 border border-[#FF9500]/20 rounded-lg hover:bg-[#FF9500]/20 transition-colors cursor-pointer group">
+                              <div className="w-8 h-8 bg-[#FF9500]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <Clock size={16} className="text-[#FF9500]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-semibold text-sm">Deadline Reminder</p>
+                                <p className="text-[#A0A0A0] text-xs">Project submission deadline for AI Innovation Challenge is in 2 days</p>
+                                <p className="text-[#A0A0A0] text-xs mt-1">1 day ago</p>
+                              </div>
+                              <button className="opacity-0 group-hover:opacity-100 p-1 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded transition-all duration-200">
+                                <X size={12} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Recent Notifications */}
+                        <div>
+                          <div className="flex items-center justify-between mb-2 px-2">
+                            <h4 className="text-sm font-semibold text-[#A0A0A0] flex items-center">
+                              <div className="w-2 h-2 bg-[#A0A0A0] rounded-full mr-2"></div>
+                              Recent (4)
+                            </h4>
+                          </div>
+                          
+                          <div className="space-y-2">
+                            {/* Team Invitation */}
+                            <div className="flex items-start space-x-3 p-3 bg-[#6A00FF]/10 border border-[#6A00FF]/20 rounded-lg hover:bg-[#6A00FF]/20 transition-colors cursor-pointer group opacity-75">
+                              <div className="w-8 h-8 bg-[#6A00FF]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <TeamIcon size={16} className="text-[#6A00FF]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-semibold text-sm">Team Invitation</p>
+                                <p className="text-[#A0A0A0] text-xs">You've been invited to join "CodeCrafters" team</p>
+                                <p className="text-[#A0A0A0] text-xs mt-1">1 day ago</p>
+                              </div>
+                              <button className="opacity-0 group-hover:opacity-100 p-1 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded transition-all duration-200">
+                                <X size={12} />
+                              </button>
+                            </div>
+
+                            {/* Club Update */}
+                            <div className="flex items-start space-x-3 p-3 bg-[#1E3C72]/10 border border-[#1E3C72]/20 rounded-lg hover:bg-[#1E3C72]/20 transition-colors cursor-pointer group opacity-75">
+                              <div className="w-8 h-8 bg-[#1E3C72]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <Building size={16} className="text-[#1E3C72]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-semibold text-sm">Club Update</p>
+                                <p className="text-[#A0A0A0] text-xs">Tech Club Algiers has posted a new announcement</p>
+                                <p className="text-[#A0A0A0] text-xs mt-1">2 days ago</p>
+                              </div>
+                              <button className="opacity-0 group-hover:opacity-100 p-1 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded transition-all duration-200">
+                                <X size={12} />
+                              </button>
+                            </div>
+
+                            {/* Winner Announcement */}
+                            <div className="flex items-start space-x-3 p-3 bg-[#FFD700]/10 border border-[#FFD700]/20 rounded-lg hover:bg-[#FFD700]/20 transition-colors cursor-pointer group opacity-75">
+                              <div className="w-8 h-8 bg-[#FFD700]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <Award size={16} className="text-[#FFD700]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-semibold text-sm">Winner Announcement</p>
+                                <p className="text-[#A0A0A0] text-xs">Results for Web Development Marathon are now available</p>
+                                <p className="text-[#A0A0A0] text-xs mt-1">3 days ago</p>
+                              </div>
+                              <button className="opacity-0 group-hover:opacity-100 p-1 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded transition-all duration-200">
+                                <X size={12} />
+                              </button>
+                            </div>
+
+                            {/* System Message */}
+                            <div className="flex items-start space-x-3 p-3 bg-[#A0A0A0]/10 border border-[#A0A0A0]/20 rounded-lg hover:bg-[#A0A0A0]/20 transition-colors cursor-pointer group opacity-75">
+                              <div className="w-8 h-8 bg-[#A0A0A0]/20 rounded-full flex items-center justify-center flex-shrink-0">
+                                <AlertCircle size={16} className="text-[#A0A0A0]" />
+                              </div>
+                              <div className="flex-1 min-w-0">
+                                <p className="text-white font-semibold text-sm">System Update</p>
+                                <p className="text-[#A0A0A0] text-xs">New features have been added to the platform</p>
+                                <p className="text-[#A0A0A0] text-xs mt-1">1 week ago</p>
+                              </div>
+                              <button className="opacity-0 group-hover:opacity-100 p-1 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded transition-all duration-200">
+                                <X size={12} />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Footer */}
+                    <div className="p-3 border-t border-white/10 bg-[#1A1A1A]/50">
+                      <div className="flex items-center justify-between">
+                        <button className="text-[#00CFFF] text-sm hover:text-white transition-colors">
+                          Mark all as read
+                        </button>
+                        <Link href="/dashboard/notifications" className="text-[#00CFFF] text-sm hover:text-white transition-colors">
+                          View all notifications
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
 
               {/* Profile Menu */}
               <div className="relative" ref={profileMenuRef}>
