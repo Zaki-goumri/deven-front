@@ -17,7 +17,8 @@ import {
   BarChart3,
   ChevronDown,
   LogOut,
-  Sparkles
+  Sparkles,
+  Building
 } from "lucide-react";
 
 interface DashboardLayoutProps {
@@ -177,6 +178,14 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                       >
                         <User size={18} className="group-hover:scale-110 transition-transform duration-300" />
                         <span>Profile</span>
+                      </Link>
+                      <Link
+                        href="/dashboard/my-clubs"
+                        onClick={() => setProfileMenuOpen(false)}
+                        className="flex items-center space-x-3 px-3 py-2 rounded-lg text-[#C7C7C7] hover:text-white hover:bg-white/5 transition-colors group"
+                      >
+                        <Building size={18} className="group-hover:scale-110 transition-transform duration-300" />
+                        <span>My Clubs</span>
                       </Link>
                       <Link
                         href="/dashboard/profile"
