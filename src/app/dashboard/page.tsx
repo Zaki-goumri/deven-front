@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Search, Filter, MapPin, Clock, Users, Trophy, Calendar, Star, ExternalLink, Heart, Share2, Eye, Zap, Globe, Building, TrendingUp, Flame, X, ChevronDown, CalendarDays } from "lucide-react";
 
 export default function FeedPage() {
@@ -207,298 +208,306 @@ export default function FeedPage() {
   };
 
   return (
-    <div className="space-y-8 p-6">
+    <div className="min-h-screen bg-[#0A0A0A]">
       {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#1E3C72] via-[#2A5298] to-[#000000] p-8">
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#1E3C72] via-[#2A5298] to-[#000000]">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="absolute inset-0 bg-gradient-to-r from-[#6A00FF]/10 to-[#00CFFF]/10"></div>
-        <div className="relative z-10">
-          <h1 className="text-4xl font-bold text-white mb-4 animate-fade-in">
-            Discover Amazing Opportunities
-          </h1>
-          <p className="text-xl text-[#C7C7C7] mb-8 max-w-2xl animate-fade-in" style={{ animationDelay: '0.2s' }}>
-            Explore hackathons, join tech clubs, and attend events. Connect with the developer community and build your network!
-          </p>
-          
-          {/* Search Bar */}
-          <div className="relative max-w-2xl animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#A0A0A0]" size={24} />
-            <input
-              type="text"
-              placeholder="Search hackathons, clubs, events, or technologies..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-[#A0A0A0] focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300"
-            />
+        <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 lg:py-24">
+          <div className="text-center space-y-8">
+            <h1 className="text-5xl lg:text-6xl font-bold text-white animate-fade-in">
+              Discover Amazing Opportunities
+            </h1>
+            <p className="text-xl lg:text-2xl text-[#C7C7C7] max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.2s' }}>
+              Explore hackathons, join tech clubs, and attend events. Connect with the developer community and build your network!
+            </p>
+            
+            {/* Search Bar */}
+            <div className="relative max-w-3xl mx-auto animate-fade-in" style={{ animationDelay: '0.4s' }}>
+              <Search className="absolute left-6 top-1/2 transform -translate-y-1/2 text-[#A0A0A0]" size={24} />
+              <input
+                type="text"
+                placeholder="Search hackathons, clubs, events, or technologies..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="w-full pl-16 pr-6 py-5 bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl text-white placeholder-[#A0A0A0] focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300 text-lg"
+              />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Filters Section */}
-      <div className="space-y-4">
-        {/* Category Filters */}
-        <div className="flex flex-wrap gap-3">
-          {categories.map((category) => (
+      {/* Main Content */}
+      <div className="max-w-7xl mx-auto px-6 py-12">
+        {/* Filters Section */}
+        <div className="space-y-8 mb-12">
+          {/* Category Filters */}
+          <div className="flex flex-wrap justify-center gap-4">
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                onClick={() => setSelectedCategory(category.id)}
+                className={`flex items-center space-x-3 px-6 py-3 rounded-full text-base font-medium transition-all duration-200 ${
+                  selectedCategory === category.id
+                    ? 'bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] text-white shadow-lg hover-lift'
+                    : 'bg-[#1A1A1A] text-[#C7C7C7] hover:bg-white/5 hover:text-white border border-white/10 hover-lift'
+                }`}
+              >
+                <category.icon size={20} />
+                <span>{category.label}</span>
+                <span className={`px-3 py-1 rounded-full text-sm ${
+                  selectedCategory === category.id ? 'bg-white/20' : 'bg-[#00CFFF]/20 text-[#00CFFF]'
+                }`}>
+                  {category.count}
+                </span>
+              </button>
+            ))}
+          </div>
+
+          {/* Advanced Filters */}
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
             <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
-                selectedCategory === category.id
-                  ? 'bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] text-white shadow-lg'
-                  : 'bg-[#1A1A1A] text-[#C7C7C7] hover:bg-white/5 hover:text-white border border-white/10'
-              }`}
+              onClick={() => setShowFilters(!showFilters)}
+              className="flex items-center space-x-3 px-6 py-3 bg-[#1A1A1A] text-[#C7C7C7] hover:text-white border border-white/10 rounded-xl transition-colors hover-lift"
             >
-              <category.icon size={16} />
-              <span>{category.label}</span>
-              <span className={`px-2 py-0.5 rounded-full text-xs ${
-                selectedCategory === category.id ? 'bg-white/20' : 'bg-[#00CFFF]/20 text-[#00CFFF]'
-              }`}>
-                {category.count}
-              </span>
+              <Filter size={20} />
+              <span>Advanced Filters</span>
+              <ChevronDown size={20} className={`transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`} />
             </button>
+
+            <div className="flex items-center space-x-4">
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="px-4 py-3 bg-[#1A1A1A] text-[#C7C7C7] border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300"
+              >
+                {sortOptions.map(option => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+
+              {(selectedTags.length > 0 || dateRange.start || dateRange.end) && (
+                <button
+                  onClick={clearFilters}
+                  className="flex items-center space-x-2 px-4 py-3 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded-xl transition-colors"
+                >
+                  <X size={20} />
+                  <span>Clear Filters</span>
+                </button>
+              )}
+            </div>
+          </div>
+
+          {/* Expanded Filters */}
+          {showFilters && (
+            <div className="bg-[#1A1A1A] rounded-2xl p-8 border border-white/10 animate-slide-down">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Date Range */}
+                <div>
+                  <h3 className="text-white font-semibold mb-4 flex items-center text-lg">
+                    <CalendarDays size={20} className="mr-3" />
+                    Date Range
+                  </h3>
+                  <div className="grid grid-cols-2 gap-4">
+                    <input
+                      type="date"
+                      value={dateRange.start}
+                      onChange={(e) => setDateRange(prev => ({ ...prev, start: e.target.value }))}
+                      className="px-4 py-3 bg-[#2A2A2A] text-white border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300"
+                    />
+                    <input
+                      type="date"
+                      value={dateRange.end}
+                      onChange={(e) => setDateRange(prev => ({ ...prev, end: e.target.value }))}
+                      className="px-4 py-3 bg-[#2A2A2A] text-white border border-white/10 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300"
+                    />
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div>
+                  <h3 className="text-white font-semibold mb-4 text-lg">Technologies & Tags</h3>
+                  <div className="flex flex-wrap gap-3">
+                    {allTags.map((tag) => (
+                      <button
+                        key={tag}
+                        onClick={() => toggleTag(tag)}
+                        className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                          selectedTags.includes(tag)
+                            ? 'bg-[#00CFFF] text-white hover-lift'
+                            : 'bg-[#2A2A2A] text-[#C7C7C7] hover:bg-[#00CFFF]/20 hover:text-[#00CFFF] hover-lift'
+                        }`}
+                      >
+                        {tag}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Results Count */}
+        <div className="flex items-center justify-between mb-8">
+          <p className="text-[#A0A0A0] text-lg">
+            Showing {sortedHackathons.length} of {hackathons.length} hackathons
+          </p>
+          {selectedTags.length > 0 && (
+            <div className="flex items-center space-x-3">
+              <span className="text-sm text-[#A0A0A0]">Active filters:</span>
+              {selectedTags.map((tag) => (
+                <span key={tag} className="px-3 py-1 bg-[#00CFFF]/20 text-[#00CFFF] text-sm rounded-full">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Hackathons Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          {sortedHackathons.map((hackathon, index) => (
+            <div 
+              key={hackathon.id} 
+              className="group relative overflow-hidden rounded-2xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-2xl hover:shadow-[#00CFFF]/10 animate-fade-in hover-lift"
+              style={{ animationDelay: `${index * 0.1}s` }}
+            >
+              {/* Cover Image */}
+              <div className="relative h-56 overflow-hidden">
+                <div className="absolute inset-0 bg-gradient-to-br from-[#1E3C72]/80 to-[#000000]/80"></div>
+                {hackathon.featured && (
+                  <div className="absolute top-6 left-6">
+                    <span className="px-4 py-2 bg-[#00CFFF]/20 text-[#00CFFF] text-sm font-medium rounded-full backdrop-blur-sm">
+                      Featured
+                    </span>
+                  </div>
+                )}
+                <div className="absolute top-6 right-6">
+                  <button className="p-3 rounded-full backdrop-blur-sm bg-black/20 text-white hover:bg-[#FF3B30]/20 hover:text-[#FF3B30] transition-all hover-lift">
+                    <Heart size={20} />
+                  </button>
+                </div>
+              </div>
+
+              {/* Content */}
+              <div className="p-8">
+                <div className="flex items-start justify-between mb-4">
+                  <div className="flex items-center space-x-4">
+                    <div className="w-12 h-12 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-xl flex items-center justify-center">
+                      <span className="text-white font-bold text-lg">{hackathon.organizationLogo}</span>
+                    </div>
+                    <div>
+                      <h3 className="text-2xl font-bold text-white group-hover:text-[#00CFFF] transition-colors mb-1">
+                        {hackathon.title}
+                      </h3>
+                      <p className="text-[#A0A0A0] text-base">{hackathon.organization}</p>
+                    </div>
+                  </div>
+                  {hackathon.isExternal && (
+                    <ExternalLink size={20} className="text-[#A0A0A0]" />
+                  )}
+                </div>
+
+                <p className="text-[#C7C7C7] text-base mb-6 line-clamp-2">{hackathon.description}</p>
+
+                {/* Prize */}
+                <div className="bg-gradient-to-r from-[#00C853]/10 to-[#00CFFF]/10 rounded-xl p-4 mb-6">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center space-x-3">
+                      <Trophy size={20} className="text-[#00CFFF]" />
+                      <span className="text-2xl font-bold text-white">{hackathon.prize}</span>
+                    </div>
+                    <span className="px-3 py-1 bg-[#00C853]/20 text-[#00C853] text-sm font-medium rounded-full">
+                      {hackathon.difficulty}
+                    </span>
+                  </div>
+                </div>
+
+                {/* Tags */}
+                <div className="flex flex-wrap gap-3 mb-6">
+                  {hackathon.tags.slice(0, 3).map((tag) => (
+                    <span key={tag} className="px-3 py-1 bg-[#1A1A1A] text-[#00CFFF] text-sm rounded-full">
+                      {tag}
+                    </span>
+                  ))}
+                  {hackathon.tags.length > 3 && (
+                    <span className="px-3 py-1 bg-[#1A1A1A] text-[#A0A0A0] text-sm rounded-full">
+                      +{hackathon.tags.length - 3} more
+                    </span>
+                  )}
+                </div>
+
+                {/* Stats */}
+                <div className="flex items-center justify-between text-sm text-[#A0A0A0] mb-6">
+                  <div className="flex items-center space-x-6">
+                    <div className="flex items-center space-x-2">
+                      <Users size={16} />
+                      <span>{hackathon.participants.toLocaleString()}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Eye size={16} />
+                      <span>{hackathon.views.toLocaleString()}</span>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Heart size={16} />
+                      <span>{hackathon.likes.toLocaleString()}</span>
+                    </div>
+                  </div>
+                  <div className="flex items-center space-x-2">
+                    <Star size={16} className="text-[#00CFFF]" fill="currentColor" />
+                    <span>{hackathon.rating}</span>
+                  </div>
+                </div>
+
+                {/* Time and Location */}
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center space-x-3">
+                    <Clock size={16} className="text-[#A0A0A0]" />
+                    <span className="text-[#C7C7C7]">{hackathon.timeLeft}</span>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <MapPin size={16} className="text-[#A0A0A0]" />
+                    <span className="text-[#C7C7C7]">{hackathon.location}</span>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex space-x-4">
+                  <Link 
+                    href={`/dashboard/hackathons/${hackathon.id}`}
+                    className="flex-1 btn-primary text-base py-4 text-center"
+                  >
+                    Join Hackathon
+                  </Link>
+                  <button className="btn-secondary text-base py-4 px-6">
+                    <Share2 size={20} />
+                  </button>
+                </div>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Advanced Filters */}
-        <div className="flex items-center justify-between">
-          <button
-            onClick={() => setShowFilters(!showFilters)}
-            className="flex items-center space-x-2 px-4 py-2 bg-[#1A1A1A] text-[#C7C7C7] hover:text-white border border-white/10 rounded-lg transition-colors"
-          >
-            <Filter size={16} />
-            <span>Advanced Filters</span>
-            <ChevronDown size={16} className={`transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`} />
-          </button>
-
-          <div className="flex items-center space-x-4">
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-3 py-2 bg-[#1A1A1A] text-[#C7C7C7] border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent"
+        {/* Empty State */}
+        {sortedHackathons.length === 0 && (
+          <div className="card p-16 text-center">
+            <div className="w-20 h-20 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-full flex items-center justify-center mx-auto mb-6">
+              <Search size={40} className="text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-4">No hackathons found</h3>
+            <p className="text-[#A0A0A0] mb-8 text-lg">
+              Try adjusting your search terms or filters to find what you're looking for.
+            </p>
+            <button 
+              onClick={clearFilters}
+              className="btn-primary text-lg px-8 py-4"
             >
-              {sortOptions.map(option => (
-                <option key={option.value} value={option.value}>{option.label}</option>
-              ))}
-            </select>
-
-            {(selectedTags.length > 0 || dateRange.start || dateRange.end) && (
-              <button
-                onClick={clearFilters}
-                className="flex items-center space-x-2 px-3 py-2 text-[#FF3B30] hover:bg-[#FF3B30]/10 rounded-lg transition-colors"
-              >
-                <X size={16} />
-                <span>Clear Filters</span>
-              </button>
-            )}
-          </div>
-        </div>
-
-        {/* Expanded Filters */}
-        {showFilters && (
-          <div className="bg-[#1A1A1A] rounded-xl p-6 border border-white/10 animate-slide-down">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              {/* Date Range */}
-              <div>
-                <h3 className="text-white font-medium mb-3 flex items-center">
-                  <CalendarDays size={16} className="mr-2" />
-                  Date Range
-                </h3>
-                <div className="grid grid-cols-2 gap-3">
-                  <input
-                    type="date"
-                    value={dateRange.start}
-                    onChange={(e) => setDateRange(prev => ({ ...prev, start: e.target.value }))}
-                    className="px-3 py-2 bg-[#2A2A2A] text-white border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent"
-                  />
-                  <input
-                    type="date"
-                    value={dateRange.end}
-                    onChange={(e) => setDateRange(prev => ({ ...prev, end: e.target.value }))}
-                    className="px-3 py-2 bg-[#2A2A2A] text-white border border-white/10 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent"
-                  />
-                </div>
-              </div>
-
-              {/* Tags */}
-              <div>
-                <h3 className="text-white font-medium mb-3">Technologies & Tags</h3>
-                <div className="flex flex-wrap gap-2">
-                  {allTags.map((tag) => (
-                    <button
-                      key={tag}
-                      onClick={() => toggleTag(tag)}
-                      className={`px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
-                        selectedTags.includes(tag)
-                          ? 'bg-[#00CFFF] text-white'
-                          : 'bg-[#2A2A2A] text-[#C7C7C7] hover:bg-[#00CFFF]/20 hover:text-[#00CFFF]'
-                      }`}
-                    >
-                      {tag}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
+              Clear All Filters
+            </button>
           </div>
         )}
       </div>
-
-      {/* Results Count */}
-      <div className="flex items-center justify-between">
-        <p className="text-[#A0A0A0]">
-          Showing {sortedHackathons.length} of {hackathons.length} hackathons
-        </p>
-        {selectedTags.length > 0 && (
-          <div className="flex items-center space-x-2">
-            <span className="text-sm text-[#A0A0A0]">Active filters:</span>
-            {selectedTags.map((tag) => (
-              <span key={tag} className="px-2 py-1 bg-[#00CFFF]/20 text-[#00CFFF] text-xs rounded-full">
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-
-      {/* Hackathons Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        {sortedHackathons.map((hackathon, index) => (
-          <div 
-            key={hackathon.id} 
-            className="group relative overflow-hidden rounded-2xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-2xl hover:shadow-[#00CFFF]/10 animate-fade-in"
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
-            {/* Cover Image */}
-            <div className="relative h-48 overflow-hidden">
-              <div className="absolute inset-0 bg-gradient-to-br from-[#1E3C72]/80 to-[#000000]/80"></div>
-              {hackathon.featured && (
-                <div className="absolute top-4 left-4">
-                  <span className="px-3 py-1 bg-[#00CFFF]/20 text-[#00CFFF] text-xs font-medium rounded-full backdrop-blur-sm">
-                    Featured
-                  </span>
-                </div>
-              )}
-              <div className="absolute top-4 right-4">
-                <button className="p-2 rounded-full backdrop-blur-sm bg-black/20 text-white hover:bg-[#FF3B30]/20 hover:text-[#FF3B30] transition-all">
-                  <Heart size={16} />
-                </button>
-              </div>
-            </div>
-
-            {/* Content */}
-            <div className="p-6">
-              <div className="flex items-start justify-between mb-3">
-                <div className="flex items-center space-x-3">
-                  <div className="w-10 h-10 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-lg flex items-center justify-center">
-                    <span className="text-white font-bold text-sm">{hackathon.organizationLogo}</span>
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-bold text-white group-hover:text-[#00CFFF] transition-colors">
-                      {hackathon.title}
-                    </h3>
-                    <p className="text-sm text-[#A0A0A0]">{hackathon.organization}</p>
-                  </div>
-                </div>
-                {hackathon.isExternal && (
-                  <ExternalLink size={16} className="text-[#A0A0A0]" />
-                )}
-              </div>
-
-              <p className="text-[#C7C7C7] text-sm mb-4 line-clamp-2">{hackathon.description}</p>
-
-              {/* Prize */}
-              <div className="bg-gradient-to-r from-[#00C853]/10 to-[#00CFFF]/10 rounded-lg p-3 mb-4">
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center space-x-2">
-                    <Trophy size={16} className="text-[#00CFFF]" />
-                    <span className="text-lg font-bold text-white">{hackathon.prize}</span>
-                  </div>
-                  <span className="px-2 py-1 bg-[#00C853]/20 text-[#00C853] text-xs font-medium rounded-full">
-                    {hackathon.difficulty}
-                  </span>
-                </div>
-              </div>
-
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-4">
-                {hackathon.tags.slice(0, 3).map((tag) => (
-                  <span key={tag} className="px-2 py-1 bg-[#1A1A1A] text-[#00CFFF] text-xs rounded-full">
-                    {tag}
-                  </span>
-                ))}
-                {hackathon.tags.length > 3 && (
-                  <span className="px-2 py-1 bg-[#1A1A1A] text-[#A0A0A0] text-xs rounded-full">
-                    +{hackathon.tags.length - 3} more
-                  </span>
-                )}
-              </div>
-
-              {/* Stats */}
-              <div className="flex items-center justify-between text-sm text-[#A0A0A0] mb-4">
-                <div className="flex items-center space-x-4">
-                  <div className="flex items-center space-x-1">
-                    <Users size={14} />
-                    <span>{hackathon.participants.toLocaleString()}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Eye size={14} />
-                    <span>{hackathon.views.toLocaleString()}</span>
-                  </div>
-                  <div className="flex items-center space-x-1">
-                    <Heart size={14} />
-                    <span>{hackathon.likes.toLocaleString()}</span>
-                  </div>
-                </div>
-                <div className="flex items-center space-x-1">
-                  <Star size={14} className="text-[#00CFFF]" fill="currentColor" />
-                  <span>{hackathon.rating}</span>
-                </div>
-              </div>
-
-              {/* Time and Location */}
-              <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center space-x-2">
-                  <Clock size={14} className="text-[#A0A0A0]" />
-                  <span className="text-sm text-[#C7C7C7]">{hackathon.timeLeft}</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <MapPin size={14} className="text-[#A0A0A0]" />
-                  <span className="text-sm text-[#C7C7C7]">{hackathon.location}</span>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="flex space-x-3">
-                <button className="flex-1 btn-primary text-sm py-3">
-                  Join Hackathon
-                </button>
-                <button className="btn-secondary text-sm py-3 px-4">
-                  <Share2 size={16} />
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Empty State */}
-      {sortedHackathons.length === 0 && (
-        <div className="card p-12 text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-full flex items-center justify-center mx-auto mb-4">
-            <Search size={32} className="text-white" />
-          </div>
-          <h3 className="text-xl font-bold text-white mb-2">No hackathons found</h3>
-          <p className="text-[#A0A0A0] mb-6">
-            Try adjusting your search terms or filters to find what you're looking for.
-          </p>
-          <button 
-            onClick={clearFilters}
-            className="btn-primary"
-          >
-            Clear All Filters
-          </button>
-        </div>
-      )}
     </div>
   );
 } 

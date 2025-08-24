@@ -1,12 +1,14 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { Search, Filter, MapPin, Clock, Users, Trophy, Calendar, Star, ExternalLink, Heart, Share2, Eye, Zap, Award, Globe, Building } from "lucide-react";
 
 export default function HackathonsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedFilter, setSelectedFilter] = useState("all");
   const [likedHackathons, setLikedHackathons] = useState<Set<number>>(new Set([1, 3]));
+
 
   // Mock hackathon data with more social features
   const hackathons = [
@@ -105,48 +107,14 @@ export default function HackathonsPage() {
       featured: true,
       timeLeft: "3 weeks left",
       coverImage: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&h=400&fit=crop",
-    },
-    {
-      id: 4,
-      title: "Blockchain & DeFi Hackathon",
-      organization: "Crypto Club",
-      organizationLogo: "CC",
-      description: "Explore the world of blockchain and cryptocurrency. Build decentralized applications and smart contracts. The future of finance is here!",
-      startDate: "2024-04-05",
-      endDate: "2024-04-07",
-      location: "Online",
-      isOnline: true,
-      isExternal: true,
-      participants: 234,
-      maxParticipants: 500,
-      prize: "$30,000",
-      prizeBreakdown: [
-        { place: "1st", amount: "$12,000" },
-        { place: "2nd", amount: "$8,000" },
-        { place: "3rd", amount: "$6,000" },
-        { place: "Special", amount: "$4,000" }
-      ],
-      tags: ["Blockchain", "Solidity", "Web3", "DeFi"],
-      status: "upcoming",
-      registrationDeadline: "2024-04-01",
-      difficulty: "Advanced",
-      rating: 4.7,
-      registered: false,
-      likes: 178,
-      views: 892,
-      featured: false,
-      timeLeft: "1 month left",
-      coverImage: "https://images.unsplash.com/photo-1639762681485-074b7f938ba0?w=800&h=400&fit=crop",
-    },
+    }
   ];
 
   const filters = [
-    { id: "all", label: "All", count: hackathons.length },
+    { id: "all", label: "All Hackathons", count: hackathons.length },
     { id: "upcoming", label: "Upcoming", count: hackathons.filter(h => h.status === "upcoming").length },
-    { id: "ongoing", label: "Ongoing", count: 0 },
-    { id: "completed", label: "Completed", count: hackathons.filter(h => h.status === "completed").length },
+    { id: "featured", label: "Featured", count: hackathons.filter(h => h.featured).length },
     { id: "online", label: "Online", count: hackathons.filter(h => h.isOnline).length },
-    { id: "in-person", label: "In-Person", count: hackathons.filter(h => !h.isOnline).length },
   ];
 
   const filteredHackathons = hackathons.filter(hackathon => {
@@ -156,69 +124,61 @@ export default function HackathonsPage() {
     
     const matchesFilter = selectedFilter === "all" ||
                          (selectedFilter === "upcoming" && hackathon.status === "upcoming") ||
-                         (selectedFilter === "completed" && hackathon.status === "completed") ||
-                         (selectedFilter === "online" && hackathon.isOnline) ||
-                         (selectedFilter === "in-person" && !hackathon.isOnline);
+                         (selectedFilter === "featured" && hackathon.featured) ||
+                         (selectedFilter === "online" && hackathon.isOnline);
     
     return matchesSearch && matchesFilter;
   });
 
   const handleLike = (hackathonId: number) => {
-    const newLiked = new Set(likedHackathons);
-    if (newLiked.has(hackathonId)) {
-      newLiked.delete(hackathonId);
+    const newLikedHackathons = new Set(likedHackathons);
+    if (newLikedHackathons.has(hackathonId)) {
+      newLikedHackathons.delete(hackathonId);
     } else {
-      newLiked.add(hackathonId);
+      newLikedHackathons.add(hackathonId);
     }
-    setLikedHackathons(newLiked);
+    setLikedHackathons(newLikedHackathons);
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case "upcoming": return "bg-[#00C853]/20 text-[#00C853]";
-      case "ongoing": return "bg-[#00CFFF]/20 text-[#00CFFF]";
-      case "completed": return "bg-[#A0A0A0]/20 text-[#A0A0A0]";
-      default: return "bg-[#A0A0A0]/20 text-[#A0A0A0]";
-    }
-  };
+
 
   const getDifficultyColor = (difficulty: string) => {
-    switch (difficulty) {
-      case "Beginner": return "bg-[#00C853]/20 text-[#00C853]";
-      case "Intermediate": return "bg-[#00CFFF]/20 text-[#00CFFF]";
-      case "Advanced": return "bg-[#FF3B30]/20 text-[#FF3B30]";
+    switch (difficulty.toLowerCase()) {
+      case "beginner": return "bg-[#00C853]/20 text-[#00C853]";
+      case "intermediate": return "bg-[#00CFFF]/20 text-[#00CFFF]";
+      case "advanced": return "bg-[#FF3B30]/20 text-[#FF3B30]";
       default: return "bg-[#A0A0A0]/20 text-[#A0A0A0]";
     }
   };
 
   return (
-    <div className="space-y-6">
+    <div className="min-h-screen bg-[#0A0A0A] p-6 space-y-8">
       {/* Hero Section */}
-      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#1E3C72] via-[#2A5298] to-[#000000] p-8">
+      <div className="relative overflow-hidden rounded-2xl bg-gradient-to-r from-[#1E3C72] via-[#2A5298] to-[#000000] p-8 md:p-12">
         <div className="absolute inset-0 bg-black/20"></div>
-        <div className="relative z-10">
-          <h1 className="text-4xl font-bold text-white mb-4">Discover Amazing Hackathons</h1>
-          <p className="text-xl text-[#C7C7C7] mb-8 max-w-2xl">
+        <div className="relative z-10 max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">Discover Amazing Hackathons</h1>
+          <p className="text-lg md:text-xl text-[#C7C7C7] mb-8 max-w-3xl mx-auto">
             Join thousands of developers, designers, and innovators in building the future. 
             Find your next challenge and win amazing prizes!
           </p>
           
           {/* Search Bar */}
-          <div className="relative max-w-2xl">
+          <div className="relative max-w-2xl mx-auto">
             <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-[#A0A0A0]" size={24} />
             <input
               type="text"
               placeholder="Search hackathons, technologies, or organizations..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
-              className="w-full pl-12 pr-4 py-4 bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl text-white placeholder-[#A0A0A0] focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent"
+              className="w-full pl-12 pr-4 py-4 bg-[#1A1A1A] border border-white/10 rounded-xl text-white placeholder-[#A0A0A0] focus:outline-none focus:ring-2 focus:ring-[#00CFFF] focus:border-transparent transition-all duration-300"
             />
           </div>
         </div>
       </div>
 
       {/* Filters */}
-      <div className="flex flex-wrap gap-3">
+      <div className="flex flex-wrap justify-center gap-3 max-w-4xl mx-auto">
         {filters.map((filter) => (
           <button
             key={filter.id}
@@ -241,12 +201,12 @@ export default function HackathonsPage() {
 
       {/* Featured Hackathons */}
       {filteredHackathons.filter(h => h.featured).length > 0 && (
-        <div>
-          <h2 className="text-2xl font-bold text-white mb-4 flex items-center">
-            <Zap className="mr-2 text-[#00CFFF]" />
+        <div className="max-w-7xl mx-auto">
+          <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 flex items-center justify-center">
+            <Zap className="mr-3 text-[#00CFFF]" />
             Featured Hackathons
           </h2>
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
             {filteredHackathons.filter(h => h.featured).map((hackathon) => (
               <div key={hackathon.id} className="group relative overflow-hidden rounded-2xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-2xl hover:shadow-[#00CFFF]/10">
                 {/* Cover Image */}
@@ -359,15 +319,12 @@ export default function HackathonsPage() {
 
                   {/* Action Buttons */}
                   <div className="flex space-x-3">
-                    {hackathon.registered ? (
-                      <button className="flex-1 btn-secondary text-sm py-3">
-                        View Details
-                      </button>
-                    ) : (
-                      <button className="flex-1 btn-primary text-sm py-3">
-                        Join Hackathon
-                      </button>
-                    )}
+                    <Link 
+                      href={`/dashboard/hackathons/${hackathon.id}`}
+                      className="flex-1 btn-primary text-sm py-3 text-center"
+                    >
+                      View Details
+                    </Link>
                     <button className="btn-secondary text-sm py-3 px-4">
                       <Share2 size={16} />
                     </button>
@@ -380,9 +337,9 @@ export default function HackathonsPage() {
       )}
 
       {/* All Hackathons */}
-      <div>
-        <h2 className="text-2xl font-bold text-white mb-4">All Hackathons</h2>
-        <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="max-w-7xl mx-auto">
+        <h2 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">All Hackathons</h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredHackathons.map((hackathon) => (
             <div key={hackathon.id} className="group relative overflow-hidden rounded-xl bg-[#121212] border border-white/10 hover:border-[#00CFFF]/30 transition-all duration-300 hover:shadow-xl hover:shadow-[#00CFFF]/5">
               {/* Header */}
@@ -474,15 +431,12 @@ export default function HackathonsPage() {
                 </div>
 
                 <div className="flex space-x-2">
-                  {hackathon.registered ? (
-                    <button className="flex-1 btn-secondary text-xs py-2">
-                      View Details
-                    </button>
-                  ) : (
-                    <button className="flex-1 btn-primary text-xs py-2">
-                      Join Now
-                    </button>
-                  )}
+                  <Link 
+                    href={`/dashboard/hackathons/${hackathon.id}`}
+                    className="flex-1 btn-primary text-xs py-2 text-center"
+                  >
+                    View Details
+                  </Link>
                   <button className="btn-secondary text-xs py-2 px-3">
                     <Share2 size={12} />
                   </button>
@@ -495,25 +449,29 @@ export default function HackathonsPage() {
 
       {/* Empty State */}
       {filteredHackathons.length === 0 && (
-        <div className="card p-12 text-center">
-          <div className="w-16 h-16 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-full flex items-center justify-center mx-auto mb-4">
-            <Search size={32} className="text-white" />
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-[#121212] rounded-2xl p-12 text-center border border-white/10">
+            <div className="w-16 h-16 bg-gradient-to-r from-[#1E3C72] to-[#00CFFF] rounded-full flex items-center justify-center mx-auto mb-6">
+              <Search size={32} className="text-white" />
+            </div>
+            <h3 className="text-2xl font-bold text-white mb-3">No hackathons found</h3>
+            <p className="text-[#A0A0A0] mb-8 text-lg">
+              Try adjusting your search terms or filters to find what you're looking for.
+            </p>
+            <button 
+              onClick={() => {
+                setSearchTerm("");
+                setSelectedFilter("all");
+              }}
+              className="btn-primary px-8 py-3"
+            >
+              Clear Filters
+            </button>
           </div>
-          <h3 className="text-xl font-bold text-white mb-2">No hackathons found</h3>
-          <p className="text-[#A0A0A0] mb-6">
-            Try adjusting your search terms or filters to find what you're looking for.
-          </p>
-          <button 
-            onClick={() => {
-              setSearchTerm("");
-              setSelectedFilter("all");
-            }}
-            className="btn-primary"
-          >
-            Clear Filters
-          </button>
         </div>
       )}
+
+
     </div>
   );
 } 
